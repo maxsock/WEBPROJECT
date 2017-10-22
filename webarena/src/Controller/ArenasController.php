@@ -10,12 +10,9 @@ class ArenasController  extends AppController
 {
 public function index()
 {
-$this->set('myname', "Maximilien Sock");
-$this->loadModel('Fighters');
 // $figterlist=$this->Fighters->find('all')->order(["Fighters.level"=>"DESC"])->first();
 // pr($figterlist->toArray());
-$this->set('test',$this->Fighters->getBestFighter());
-
+//$this->set('myname', "Maximilien Sock");
 }
 public function login()
 {
@@ -23,7 +20,10 @@ public function login()
 }
 public function fighter()
 {
-    
+    $playerid = '2';
+    $this->loadModel('Fighters');
+    $this->set('FighterName',$this->Fighters->getFighterName($playerid));
+
 }
 public function sight()
 {

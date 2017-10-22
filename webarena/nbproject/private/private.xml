@@ -6,7 +6,9 @@
             <file>file:/Applications/MAMP/htdocs/webarena/index.php</file>
             <file>file:/Applications/MAMP/htdocs/webarena/src/Controller/ArenasController.php</file>
             <file>file:/Applications/MAMP/htdocs/webarena/src/Controller/AppController.php</file>
+            <file>file:/Applications/MAMP/htdocs/webarena/src/Template/Arenas/fighter.ctp</file>
             <file>file:/Applications/MAMP/htdocs/webarena/src/Model/Table/FightersTable.php</file>
+            <file>file:/Applications/MAMP/htdocs/webarena/src/Template/Layout/default.ctp</file>
             <file>file:/Applications/MAMP/htdocs/webarena/src/Template/Arenas/index.ctp</file>
         </group>
     </open-files>

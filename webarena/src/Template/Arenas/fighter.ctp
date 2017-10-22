@@ -1,1 +1,1 @@
-fighter
+name : <?php echo $FighterName;?>
