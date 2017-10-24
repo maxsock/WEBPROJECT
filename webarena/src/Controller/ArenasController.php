@@ -122,8 +122,6 @@ public function messages(){
   // $this->set('messagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2)->message);
 
 
-
-
 }
 }
 
