@@ -11,7 +11,7 @@ class MessagesTable extends Table
       $query = $this->find('all')->order(["Messages.date"=>"DESC"])->first();;
       return $query;
   }
-  
+
   public function getLastMessageFromBoth($fighterIdUsed, $fighterId2)
   {
       // $query = $this->find('all')->where(["Messages.fighter_id" => $fighterIdUsed, "Messages.fighter_id_from" => $fighterId2])
@@ -39,7 +39,8 @@ class MessagesTable extends Table
         'Messages.fighter_id'=>$fighterId2,
         'Messages.fighter_id_from'=>$fighterIdUsed
       )
-    ));
+    ))->last();
 
+    return $arrayQr;
   }
 }
