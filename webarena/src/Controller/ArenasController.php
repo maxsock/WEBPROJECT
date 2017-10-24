@@ -21,14 +21,14 @@ public function login()
 public function fighter()
 {
 
-    $id = '2'; 
-    
+    $id = '2';
+
     $this->loadModel('Fighters');
     $array=$this->Fighters->getFighter($id);
     $array->name = 'Angmar2';
-    $this->Fighters->update($array); 
-    
-    
+    $this->Fighters->update($array);
+
+
     $this->set('FighterName',$this->Fighters->getFighter($id)->name);
     $this->set('FighterId',$this->Fighters->getFighter($id)->id);
     $this->set('FighterLevel',$this->Fighters->getFighter($id)->level);
@@ -41,14 +41,18 @@ public function fighter()
     $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
     $this->set('FighterNextActionTime',$this->Fighters->getFighter($id)->next_action_time);
     $this->set('FighterGuildId',$this->Fighters->getFighter($id)->guild_id);
-   
-    
+
+
 
 
 }
 public function sight()
 {
+  $height = 10;
+  $length = 15;
 
+  $this->set('h', $height);
+  $this->set('l', $length);
 }
 public function diary()
 {
