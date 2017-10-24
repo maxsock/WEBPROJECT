@@ -82,77 +82,77 @@ class FightersTable extends Table
       $guildId = $query->get("guild_id");
       return($guildId);
   }
-  public function SetFighterName($playerid,$newfightername)
+  public function setFighterName($playerid,$newfightername)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->name=$newfightername;
       $this->save($query);
       
   }
-  public function SetFighterCoordx($playerid,$depx)
+  public function setFighterCoordx($playerid,$depx)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->coordinate_x=$query->coordinate_x+$depx;
       $this->save($query);
       
   }
-  public function SetFighterCoordy($playerid,$depy)
+  public function setFighterCoordy($playerid,$depy)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->coordinate_y=$query->coordinate_y+$depy;
       $this->save($query);
       
   }
-  public function SetFighterLevel($playerid,$NewFighterLevel)
+  public function setFighterLevel($playerid,$NewFighterLevel)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->level=$NewFighterLevel;
       $this->save($query);
       
   }
-  public function SetFighterXp($playerid,$NewFighterXp)
+  public function setFighterXp($playerid,$NewFighterXp)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->xp=$NewFighterXp;
       $this->save($query);
       
   }
-  public function SetFighterSight($playerid,$NewFighterSight)
+  public function setFighterSight($playerid,$NewFighterSight)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->skill_sight=$NewFighterSight;
       $this->save($query);
       
   }
-  public function SetFighterStrength($playerid,$NewFighterStrength)
+  public function setFighterStrength($playerid,$NewFighterStrength)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->skill_strength=$NewFighterStrength;
       $this->save($query);
       
   }
-  public function SetFighterHealth($playerid,$NewFighterCurrentHealth)
+  public function setFighterHealth($playerid,$NewFighterCurrentHealth)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->skill_health=$NewFighterCurrentHealth;
       $this->save($query);
       
   }
-  public function SetFighterCurrentHealth($playerid,$NewFighterHealth)
+  public function setFighterCurrentHealth($playerid,$NewFighterHealth)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->current_health=$NewFighterHealth;
       $this->save($query);
       
   }
-  public function SetFighterCurrentNextActionTime($playerid,$NewFighterNextActionTime)
+  public function setFighterNextActionTime($playerid,$NewFighterNextActionTime)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->next_action_time=$NewFighterNextActionTime;
       $this->save($query);
       
   }
-  public function SetFighterCurrentGuildId($playerid,$NewFighterGuildId)
+  public function setFighterGuildId($playerid,$NewFighterGuildId)
   {
       $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
       $query->guild_id=$NewFighterGuildId;

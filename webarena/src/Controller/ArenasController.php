@@ -33,6 +33,7 @@ public function fighter()
     $NewFighterNextActionTime = NULL;
     $NewFighterGuildId = NULL;
     
+  
     
     $this->loadModel('Fighters');
     $this->Fighters->setFighterCoordx($playerid,$depx); // update coord x
@@ -44,8 +45,8 @@ public function fighter()
     $this->Fighters->setFighterStrength($playerid,$NewFighterStrength); // update strength
     $this->Fighters->setFighterHealth($playerid,$NewFighterHealth); // change max health
     $this->Fighters->setFighterCurrentHealth($playerid,$NewFighterCurrentHealth); // update current health
-    $this->Fighters->setFighterCurrentHealth($playerid,$NewFighterNextActionTime); // update next action time
-    $this->Fighters->setFighterCurrentHealth($playerid,$NewFighterGuildId); // update guild id
+    $this->Fighters->setFighterNextActionTime($playerid,$NewFighterNextActionTime); // update next action time
+    $this->Fighters->setFighterGuildId($playerid,$NewFighterGuildId); // update guild id
 
     
     $this->set('FighterName',$this->Fighters->getFighterName($playerid));
