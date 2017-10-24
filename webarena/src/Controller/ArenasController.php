@@ -20,28 +20,26 @@ public function login()
 }
 public function fighter()
 {
-    $playerid = '2'; 
-    $newfightername = 'Angmar';
-    
-    
-    $array=array('2','Angmar');
+    $id = '2'; 
     
     $this->loadModel('Fighters');
+    $array=$this->Fighters->getFighter($id);
+    $array->name = 'Angmar2';
     $this->Fighters->update($array); 
     
     
-    $this->set('FighterName',$this->Fighters->getFighter($playerid)->name);
-    $this->set('FighterId',$this->Fighters->getFighter($playerid)->id);
-    $this->set('FighterLevel',$this->Fighters->getFighter($playerid)->level);
-    $this->set('FighterCoordX',$this->Fighters->getFighter($playerid)->coordinate_x);
-    $this->set('FighterCoordY',$this->Fighters->getFighter($playerid)->coordinate_y);
-    $this->set('FighterXp',$this->Fighters->getFighter($playerid)->xp);
-    $this->set('FighterSight',$this->Fighters->getFighter($playerid)->skill_sight);
-    $this->set('FighterStrength',$this->Fighters->getFighter($playerid)->skill_strength);
-    $this->set('FighterHealth',$this->Fighters->getFighter($playerid)->skill_health);
-    $this->set('FighterCurrentHealth',$this->Fighters->getFighter($playerid)->current_health);
-    $this->set('FighterNextActionTime',$this->Fighters->getFighter($playerid)->next_action_time);
-    $this->set('FighterGuildId',$this->Fighters->getFighter($playerid)->guild_id);
+    $this->set('FighterName',$this->Fighters->getFighter($id)->name);
+    $this->set('FighterId',$this->Fighters->getFighter($id)->id);
+    $this->set('FighterLevel',$this->Fighters->getFighter($id)->level);
+    $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
+    $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
+    $this->set('FighterXp',$this->Fighters->getFighter($id)->xp);
+    $this->set('FighterSight',$this->Fighters->getFighter($id)->skill_sight);
+    $this->set('FighterStrength',$this->Fighters->getFighter($id)->skill_strength);
+    $this->set('FighterHealth',$this->Fighters->getFighter($id)->skill_health);
+    $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
+    $this->set('FighterNextActionTime',$this->Fighters->getFighter($id)->next_action_time);
+    $this->set('FighterGuildId',$this->Fighters->getFighter($id)->guild_id);
    
 
 }

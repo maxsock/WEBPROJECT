@@ -27,26 +27,19 @@ class FightersTable extends Table
     $fightersTable->save($newFighter);
   }
  
-  public function getFighter($playerid)
+  public function getFighter($id)
   {
-      $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
+      $query = $this->find('all')->where(["Fighters.id" => $id])->first();
       return($query);
   }
  
  
-  public function setFighterGuildId($playerid,$NewFighterGuildId)
-  {
-      $query = $this->find('all')->where(["Fighters.id" => $playerid])->first();
-      $query->guild_id=$NewFighterGuildId;
-      $this->save($query);
-      
-  }
   public function update ($array)
   { 
     $fightersTable = TableRegistry::get('fighters');
-    $fighter = $fightersTable->get($array[0]); 
-
-    $fighter->name = $array[1];
+    $fighter = $fightersTable->get($array->id); 
+    
+    $fighter = $array;
     $fightersTable->save($fighter);
   }
 }
