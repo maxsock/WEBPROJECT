@@ -2,13 +2,27 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 
 class MessagesTable extends Table
 {
+  public function addMessage($newTuple)
+  {
+    $messagesTable = TableRegistry::get('Messages');
+    $newMessage = $messagesTable->newEntity();
+
+    $newMessage->date = $newTuple[0];
+    $newMessage->title = $newTuple[1];
+    $newMessage->message = $newTuple[2];
+    $newMessage->fighter_id_from = $newTuple[3];
+    $newMessage->fighter_id = $newTuple[4];
+
+    $messagesTable->save($newMessage);
+  }
 
   public function getLastMessage()
   {
-      $query = $this->find('all')->order(["Messages.date"=>"DESC"])->first();;
+      $query = $this->find('all')->order(["Messages.date"=>"DESC"])->first();
       return $query;
   }
 

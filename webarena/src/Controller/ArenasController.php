@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
+use Cake\I18n\Time;
 /**
 * Personal Controller
 * User personal interface
@@ -54,6 +55,22 @@ public function sight()
   $this->set('h', $height);
   $this->set('l', $length);
 }
+
+public function addMessage()
+{
+    if ($this->request->is('post'))
+    {
+        $id_from = 1;
+        $this->loadModel('Fighters');
+        $userTo = $this->Fighters->findByName($this->request->getData()['To'])->first()->id;
+
+        $array = array(Time::now(), $this->request->getData()['Title'], $this->request->getData()['Message'], $id_from, $userTo);
+
+        $this->loadModel('Messages');
+        $this->Messages->addMessage($array);
+    }
+}
+
 public function diary()
 {
 
