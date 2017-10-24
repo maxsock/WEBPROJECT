@@ -16,20 +16,20 @@ public function index()
 }
 public function login()
 {
-    
+
 }
 public function fighter()
 {
-    $playerid = '2'; 
+    $playerid = '2';
     $newfightername = 'Angmar';
-    
-    
+
+
     $array=array('2','Angmar');
-    
+
     $this->loadModel('Fighters');
-    $this->Fighters->update($array); 
-    
-    
+    $this->Fighters->update($array);
+
+
     $this->set('FighterName',$this->Fighters->getFighter($playerid)->name);
     $this->set('FighterId',$this->Fighters->getFighter($playerid)->id);
     $this->set('FighterLevel',$this->Fighters->getFighter($playerid)->level);
@@ -42,16 +42,30 @@ public function fighter()
     $this->set('FighterCurrentHealth',$this->Fighters->getFighter($playerid)->current_health);
     $this->set('FighterNextActionTime',$this->Fighters->getFighter($playerid)->next_action_time);
     $this->set('FighterGuildId',$this->Fighters->getFighter($playerid)->guild_id);
-   
+
 
 }
 public function sight()
 {
-    
+
 }
 public function diary()
 {
-    
+
+}
+
+public function messages(){
+  $this->loadModel('Messages');
+  $this->set('lastMessageIdFrom', $this->Messages->getLastMessage()->message);
+  $this->set('lastMessageDate', $this->Messages->getLastMessage()->date);
+
+  $this->set('lastMessageFromBoth', $this->Messages->getLastMessageFromBoth(1, 2));
+
+  $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2));
+  // $this->set('messagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2)->message);
+
+
+
 }
 }
 
@@ -64,6 +78,6 @@ function profile()
         }
     $player=$this->get(42);
     $this->set("player",$player);
-   
-        
+
+
 }
