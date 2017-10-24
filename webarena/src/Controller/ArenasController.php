@@ -103,6 +103,7 @@ public function addMessage()
 
         $this->loadModel('Messages');
         $this->Messages->addMessage($array);
+        return $this->redirect(['action' => 'messages']);
     }
 }
 
@@ -118,7 +119,7 @@ public function messages(){
 
   $this->set('lastMessageFromBoth', $this->Messages->getLastMessageFromBoth(1, 2));
 
-  $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2));
+  $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 3));
   // $this->set('messagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2)->message);
 
 
