@@ -9,15 +9,12 @@ Last message (in all) :
 <br /><br /><br /><br />
 
 <?php
-echo 'The messages between f1 & f2 are: <ul>';
+echo 'The messages between f1 & f2 are: <ul>'. $allMessagesFromBoth;
 
-foreach( $allMessagesFromBoth as $val ) {
-    echo '<li>';
-    echo $val[ 'fighter_id_from' ][ 'fighter_id' ];
-    echo ' who is passionate about: ';
-    echo $val['message'];
-    echo '</li>';
-}
+// while ($allMessagesFromBoth->valid()) {
+//     $article = $allMessagesFromBoth->current();
+//     $allMessagesFromBoth->next();
+// }
 
 echo '</ul>';
 ?>
