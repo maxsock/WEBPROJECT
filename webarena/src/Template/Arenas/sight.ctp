@@ -15,7 +15,7 @@ echo $this->Form->end();
         if ($i== $FighterCoordY && $j== $FighterCoordX){
           $char = 'P';
         }else{
-          $char ='A';
+          $char ='.';
         }?>
         <td><?php echo $char; ?></td>
       <?php } ?>
