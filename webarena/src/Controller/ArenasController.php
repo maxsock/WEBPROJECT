@@ -57,38 +57,22 @@ public function sight()
   $this->set('h', $height);
   $this->set('l', $length);
 
-
-  if($this->request->is('post')){
-
+  if($this->request->is('post'))
+  {
     $fighter=$this->Fighters->getFighter($id);
 
-    if($this->request->data['dir']=='GO UP' && $fighter->coordinate_y>0){
-
-      $fighter->coordinate_y=$fighter->coordinate_y-1;
-      $this->Fighters->update($fighter);
+    if($this->request->data['attack'])
+    {
+      $this->Fighters->attack($this->request->data['dir'], $fighter);
     }
-    if($this->request->data['dir']=='GO DOWN' && $fighter->coordinate_y<9){
-
-      $fighter->coordinate_y=$fighter->coordinate_y+1;
-      $this->Fighters->update($fighter);
+    else
+    {
+      $this->Fighters->move($this->request->data['dir'], $fighter);
     }
-    if($this->request->data['dir']=='GO LEFT' && $fighter->coordinate_x>0){
-
-      $fighter->coordinate_x=$fighter->coordinate_x-1;
-      $this->Fighters->update($fighter);
-    }
-    if($this->request->data['dir']=='GO RIGHT' && $fighter->coordinate_x<14){
-
-      $fighter->coordinate_x=$fighter->coordinate_x+1;
-      $this->Fighters->update($fighter);
-    }
-
-
-}
+  }
 
 $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
 $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
-
 }
 
 public function addMessage()

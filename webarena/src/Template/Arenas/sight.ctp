@@ -1,6 +1,7 @@
 
 <?php
 echo $this->Form->create();
+echo $this->Form->control('attack',['type' => 'checkbox']);
 echo $this->Form->submit('GO UP',['name'=>'dir']);
 echo $this->Form->submit('GO DOWN',['name'=>'dir']);
 echo $this->Form->submit('GO RIGHT',['name'=>'dir']);

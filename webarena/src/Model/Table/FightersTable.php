@@ -65,7 +65,7 @@ class FightersTable extends Table
       $arrayName[1]=1;
       $figtherAttacked->current_health= $figtherAttacked->current_health-$fighter->skill_strength;
 
-      if($fighterAttacked->current_health=<0){
+      if($fighterAttacked->current_health<=0){
         $exp=$fighterAttacked->level;
         $arrayName[1]=$exp;
         $arrayName[2]=1;
@@ -76,3 +76,33 @@ class FightersTable extends Table
     return $arrayName;
 
   }
+
+  public function move($dir, $fighter)
+  {
+    $fightersTable = TableRegistry::get('Fighters');
+    $height = 10;
+    $length = 15;
+
+    if($dir=='GO UP' && $fighter->coordinate_y>0)
+    {
+      $fighter->coordinate_y = $fighter->coordinate_y -1;
+      $fightersTable->save($fighter);
+    }
+    if($dir=='GO DOWN' && $fighter->coordinate_y<$height-1)
+    {
+      $fighter->coordinate_y = $fighter->coordinate_y+1;
+      $fightersTable->save($fighter);
+    }
+    if($dir=='GO LEFT' && $fighter->coordinate_x>0)
+    {
+      $fighter->coordinate_x = $fighter->coordinate_x-1;
+      $fightersTable->save($fighter);
+    }
+    if($dir=='GO RIGHT' && $fighter->coordinate_x<$length-1)
+    {
+      $fighter->coordinate_x = $fighter->coordinate_x+1;
+      $fightersTable->save($fighter);
+    }
+  }
+
+}
