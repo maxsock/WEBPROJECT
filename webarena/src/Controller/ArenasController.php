@@ -33,15 +33,15 @@ public function fighter()
         $entity = $this->Fighters->get($id);
         $result = $this->Fighters->delete($entity);
     }
-    
+
     if($this->request->is('post'))
     {
-        
+
          $array->id=$id;
          $array->name= $this->request->data['fighter_name'];
          $this->Fighters->newFighter($array);
 
-            
+
      }
 
 
@@ -88,6 +88,8 @@ public function sight()
 
 $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
 $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
+$this->set('FighterSkillSight',$this->Fighters->getFighter($id)->skill_sight);
+
 $this->set('fightersTable', $this->Fighters->getAllFighters());
 }
 

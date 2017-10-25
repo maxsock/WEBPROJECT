@@ -11,19 +11,34 @@ echo $this->Form->end();
 
 <table>
   <?php
-  for($i=0;$i<$h;$i++) { ?>
-    <tr>
-      <?php for($j=0;$j<$l;$j++){
-        if ($i== $FighterCoordY && $j== $FighterCoordX){
+  for($i=0;$i<$h;$i++)
+  { ?>
+    <tr><?php
+    for($j=0;$j<$l;$j++)
+    {
+      if ($i== $FighterCoordY && $j== $FighterCoordX)
+      {
           $char = 'P';
-        }else{
+      }
+      else
+      {
+        if(abs($i-$FighterCoordY)+abs($j-$FighterCoordX)<=$FighterSkillSight)
+        {
           $char ='.';
-          foreach ($fightersTable as $f) {
-            if($i== $f->coordinate_y && $j== $f->coordinate_x){
-              $char='E';
+          foreach ($fightersTable as $f)
+          {
+            if($i== $f->coordinate_y && $j== $f->coordinate_x)
+            {
+                $char='E';
             }
           }
-        }?>
+        }
+        else
+        {
+          $char='M';
+        }
+
+    }?>
         <td><?php echo $char; ?></td>
       <?php } ?>
     </tr>
