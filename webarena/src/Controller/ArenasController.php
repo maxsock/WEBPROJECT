@@ -28,21 +28,29 @@ public function fighter()
 
     $array=$this->Fighters->getFighter($id);
 
+    
     if($array->current_health == '0')
     {
         $entity = $this->Fighters->get($id);
         $result = $this->Fighters->delete($entity);
+        
+        if($this->request->is('post'))
+        {
+            $array->id=$id;
+            $array->name= $this->request->data['fighter_name'];
+            $this->Fighters->newFighter($array); 
+        }
     }
-
-    if($this->request->is('post'))
+    
+    if (!empty($this->request->data['file'])) 
     {
-
-         $array->id=$id;
-         $array->name= $this->request->data['fighter_name'];
-         $this->Fighters->newFighter($array);
-
-
-     }
+        $avatar = $this->request->data['file'];
+            
+        if ($avatar['type'] == 'image/png' or $avatar['type'] == 'image/jpeg' or $avatar['type'] == 'image/gif')
+        {
+            move_uploaded_file($avatar['tmp_name'], WWW_ROOT . 'img/avatars/' . "$id.jpg");
+        }
+    }
 
 
     $this->set('FighterName',$this->Fighters->getFighter($id)->name);
