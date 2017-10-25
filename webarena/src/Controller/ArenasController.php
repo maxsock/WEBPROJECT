@@ -53,10 +53,12 @@ public function sight()
   $this->set('h', $height);
   $this->set('l', $length);
 
-  if($this->request->is('post'))
-  {
+
+  if($this->request->is('post')){
+
     $fighter=$this->Fighters->getFighter($id);
 
+<<<<<<< HEAD
     if($this->request->data['attack'])
     {
       $this->Fighters->attack($this->request->data['dir'], $fighter);
@@ -69,6 +71,35 @@ public function sight()
 
 $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
 $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
+=======
+    if($this->request->data['dir']=='GO UP' && $fighter->coordinate_y>0){
+
+      $fighter->coordinate_y=$fighter->coordinate_y-1;
+      $this->Fighters->update($fighter);
+    }
+    if($this->request->data['dir']=='GO DOWN' && $fighter->coordinate_y<9){
+
+      $fighter->coordinate_y=$fighter->coordinate_y+1;
+      $this->Fighters->update($fighter);
+    }
+    if($this->request->data['dir']=='GO LEFT' && $fighter->coordinate_x>0){
+
+      $fighter->coordinate_x=$fighter->coordinate_x-1;
+      $this->Fighters->update($fighter);
+    }
+    if($this->request->data['dir']=='GO RIGHT' && $fighter->coordinate_x<14){
+
+      $fighter->coordinate_x=$fighter->coordinate_x+1;
+      $this->Fighters->update($fighter);
+    }
+
+
+}
+
+$this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
+$this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
+
+>>>>>>> c48101354b09960f84368a194e49af9e68dfc160
 }
 
 public function addMessage()
@@ -83,7 +114,6 @@ public function addMessage()
 
         $this->loadModel('Messages');
         $this->Messages->addMessage($array);
-        return $this->redirect(['action' => 'messages']);
     }
 }
 
@@ -99,8 +129,10 @@ public function messages(){
 
   $this->set('lastMessageFromBoth', $this->Messages->getLastMessageFromBoth(1, 2));
 
-  $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 3));
+  $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2));
   // $this->set('messagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2)->message);
+
+
 
 
 }

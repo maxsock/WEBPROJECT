@@ -27,22 +27,30 @@ class FightersTable extends Table
 
     $fightersTable->save($newFighter);
   }
- 
+
   public function getFighter($id)
   {
       $query = $this->find('all')->where(["Fighters.id" => $id])->first();
       return($query);
   }
+<<<<<<< HEAD
  
   public function update($array)
   { 
+=======
+
+
+  public function update ($array)
+  {
+>>>>>>> c48101354b09960f84368a194e49af9e68dfc160
     $fightersTable = TableRegistry::get('fighters');
-    $fighter = $fightersTable->get($array->id); 
-    
+    $fighter = $fightersTable->get($array->id);
+
     $fighter = $array;
     $fightersTable->save($fighter);
   }
 
+<<<<<<< HEAD
   public function move($dir, $fighter)
   {
     $fightersTable = TableRegistry::get('Fighters');
@@ -71,3 +79,38 @@ class FightersTable extends Table
     }
   }
 }
+=======
+  public function attack($dir,$fighter){
+
+    $fightersTable = TableRegistry::get('Fighters');
+    $arrayName = array('',0,0);
+
+    if($dir=='GO UP'){
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y-1);
+    }
+    if($dir=='GO DOWN'){
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y+1);
+    }
+    if($dir=='GO LEFT'){
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x-1,$fighter->coordinate_y);
+    }
+    if($dir=='GO RIGHT'){
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x+1,$fighter->coordinate_y);
+    }
+    if($fighterAttacked){
+      $arrayName[0]=$figtherAttacked->name;
+      $arrayName[1]=1;
+      $figtherAttacked->current_health= $figtherAttacked->current_health-$fighter->skill_strength;
+
+      if($fighterAttacked->current_health=<0){
+        $exp=$fighterAttacked->level;
+        $arrayName[1]=$exp;
+        $arrayName[2]=1;
+        $this->delete($fighterAttacked);
+      }
+
+    }
+    return $arrayName;
+
+  }
+>>>>>>> c48101354b09960f84368a194e49af9e68dfc160
