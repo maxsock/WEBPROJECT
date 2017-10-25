@@ -9,8 +9,10 @@
     <dd> <?php echo $FighterCoordX;?> </dd>
     <dt> CoordY : </dt>
     <dd> <?php echo $FighterCoordY;?> </dd>
-    <dt> Xp : <?php echo $FighterXp;?> </dt>
-    <dd> Sight : <?php echo $FighterSight;?> </dd>
+    <dt> Xp : </dt 
+    <dd> <?php echo $FighterXp;?> </dd>
+    <dt> Sight : </dt>
+    <dd> <?php echo $FighterSight;?> </dd>
     <dt> Strength : </dt>
     <dd> <?php echo $FighterStrength;?> </dd>
     <dt> Health :</dt>
@@ -23,10 +25,10 @@
     <dd> <?php echo $FighterGuildId;?> </dd>
 
 </dl>
-
+CREATE NEW FIGHTER : 
 <?php echo $this->Form->create();
 echo $this->Form->control("Fighter Name");
-echo $this->Form->control("ZDZD");
+//echo $this->Form->control("");
 
 
 echo $this->Form->submit();

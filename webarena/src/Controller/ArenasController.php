@@ -26,8 +26,22 @@ public function fighter()
 
     $this->loadModel('Fighters');
     $array=$this->Fighters->getFighter($id);
-    $array->name = 'Angmar2';
-    $this->Fighters->update($array);
+
+    if($array->current_health == '0')
+    {
+        $entity = $this->Fighters->get($id);
+        $result = $this->Fighters->delete($entity);
+    }
+    
+    if($this->request->is('post'))
+    {
+        
+         $array->id=$id;
+         $array->name= $this->request->data['fighter_name'];
+         $this->Fighters->newFighter($array);
+
+            
+     }
 
 
     $this->set('FighterName',$this->Fighters->getFighter($id)->name);

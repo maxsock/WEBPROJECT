@@ -110,6 +110,28 @@ class FightersTable extends Table
       $fighter->coordinate_x = $fighter->coordinate_x+1;
       $fightersTable->save($fighter);
     }
-  
-}
+   }
+
+   public function newFighter($fighterInfo)
+   {
+      $fightersTable = TableRegistry::get('Fighters');
+    $newFighter = $fightersTable->newEntity();
+    
+    $newFighter->name = $fighterInfo->name;
+    $newFighter->id = $fighterInfo->id;
+    $newFighter->player_id = $fighterInfo->player_id;
+    $newFighter->coordinate_x = rand ( '0' , '15' );
+    $newFighter->coordinate_y = rand ( '0' , '10' );
+    $newFighter->level = '1';
+    $newFighter->xp = '0';
+    $newFighter->skill_sight = '2';
+    $newFighter->skill_strength = '1';
+    $newFighter->skill_health =  '5';
+    $newFighter->current_health = '5';
+    $newFighter->next_action_time = NULL;
+    $newFighter->guild_id = NULL;
+
+    $fightersTable->save($newFighter);
+   }
+
 }
