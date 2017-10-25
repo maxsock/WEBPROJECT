@@ -10,13 +10,19 @@ echo $this->Form->end();
 ?>
 
 <table>
-  <?php for($i=0;$i<$h;$i++) { ?>
+  <?php
+  for($i=0;$i<$h;$i++) { ?>
     <tr>
       <?php for($j=0;$j<$l;$j++){
         if ($i== $FighterCoordY && $j== $FighterCoordX){
           $char = 'P';
         }else{
           $char ='.';
+          foreach ($fightersTable as $f) {
+            if($i== $f->coordinate_y && $j== $f->coordinate_x){
+              $char='E';
+            }
+          }
         }?>
         <td><?php echo $char; ?></td>
       <?php } ?>

@@ -25,6 +25,7 @@ public function fighter()
     $id = '2';
 
     $this->loadModel('Fighters');
+
     $array=$this->Fighters->getFighter($id);
     $array->name = 'Angmar2';
     $this->Fighters->update($array);
@@ -73,6 +74,7 @@ public function sight()
 
 $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
 $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
+$this->set('fightersTable', $this->Fighters->getAllFighters());
 }
 
 public function addMessage()

@@ -33,6 +33,11 @@ class FightersTable extends Table
       return($query);
   }
 
+  public function getAllFighters(){
+    $fightersTable = $this->find('all');
+    return ($fightersTable);
+  }
+
 
   public function update ($array)
   {
@@ -110,6 +115,6 @@ class FightersTable extends Table
       $fighter->coordinate_x = $fighter->coordinate_x+1;
       $fightersTable->save($fighter);
     }
-  
+
 }
 }
