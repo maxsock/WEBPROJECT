@@ -21,7 +21,6 @@ public function login()
 }
 public function fighter()
 {
-
     $id = '2';
 
     $this->loadModel('Fighters');
@@ -43,9 +42,6 @@ public function fighter()
     $this->set('FighterNextActionTime',$this->Fighters->getFighter($id)->next_action_time);
     $this->set('FighterGuildId',$this->Fighters->getFighter($id)->guild_id);
 
-
-
-
 }
 public function sight()
 {
@@ -61,34 +57,18 @@ public function sight()
   {
     $fighter=$this->Fighters->getFighter($id);
 
-    if($this->request->data['dir']=='GO UP' && $fighter->coordinate_y>0)
+    if($this->request->data['attack'])
     {
-      $fighter->coordinate_y = $fighter->coordinate_y -1;
-      $this->Fighters->update($fighter);
+      $this->Fighters->attack($this->request->data['dir'], $fighter);
     }
-    if($this->request->data['dir']=='GO DOWN' && $fighter->coordinate_y<$height-1)
+    else
     {
-      $fighter->coordinate_y = $fighter->coordinate_y+1;
-      $this->Fighters->update($fighter);
+      $this->Fighters->move($this->request->data['dir'], $fighter);
     }
-    if($this->request->data['dir']=='GO LEFT' && $fighter->coordinate_x>0)
-    {
-      $fighter->coordinate_x = $fighter->coordinate_x-1;
-      $this->Fighters->update($fighter);
-    }
-    if($this->request->data['dir']=='GO RIGHT' && $fighter->coordinate_x<$length-1)
-    {
-      $fighter->coordinate_x = $fighter->coordinate_x+1;
-      $this->Fighters->update($fighter);
-    }
-
-}
+  }
 
 $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
 $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
-
-
-
 }
 
 public function addMessage()
