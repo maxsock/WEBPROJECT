@@ -43,33 +43,40 @@ class FightersTable extends Table
     $fightersTable->save($fighter);
   }
 
-  public function attack($dir,$fighter){
+  public function attack($dir,$fig){
 
-    $fightersTable = TableRegistry::get('Fighters');
+    $fightersTable = TableRegistry::get('fighters');
+    $fighter = $fightersTable->get($fig->id);
+    $fighterAttacked = $fightersTable->newEntity();
+
     $arrayName = array('',0,0);
 
     if($dir=='GO UP'){
-      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y-1);
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y-1)->first();
     }
     if($dir=='GO DOWN'){
-      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y+1);
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y+1)->first();
     }
     if($dir=='GO LEFT'){
-      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x-1,$fighter->coordinate_y);
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x-1,$fighter->coordinate_y)->first();
     }
     if($dir=='GO RIGHT'){
-      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x+1,$fighter->coordinate_y);
+      $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x+1,$fighter->coordinate_y)->first();
     }
-    if($fighterAttacked){
-      $arrayName[0]=$figtherAttacked->name;
-      $arrayName[1]=1;
-      $figtherAttacked->current_health= $figtherAttacked->current_health-$fighter->skill_strength;
 
-      if($fighterAttacked->current_health<=0){
+    if ($fighterAttacked != null)
+    {
+      $arrayName[0]=$fighterAttacked->name;
+      $arrayName[1]=1;
+      $fighterAttacked->current_health = $fighterAttacked->current_health - $fighter->skill_strength;
+      $fightersTable->save($fighterAttacked);
+
+      if($fighterAttacked->current_health<=0)
+      {
         $exp=$fighterAttacked->level;
         $arrayName[1]=$exp;
         $arrayName[2]=1;
-        $this->delete($fighterAttacked);
+        $query = $fightersTable->delete($fighterAttacked);
       }
 
     }
@@ -104,4 +111,5 @@ class FightersTable extends Table
       $fightersTable->save($fighter);
     }
   
+}
 }
