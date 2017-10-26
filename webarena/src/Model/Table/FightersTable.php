@@ -145,4 +145,28 @@ class FightersTable extends Table{
     }
   }
 
+  public function upgrade($fig, $choice)
+  {
+    $fightersTable = TableRegistry::get('Fighters');
+
+    switch ($choice) 
+    {
+      case 0:
+        $fig->skill_sight = $fig->skill_sight+1;
+        break;
+
+      case 1:
+        $fig->skill_strength = $fig->skill_strength+1;
+        break;
+      
+      case 2:
+      $fig->skill_health = $fig->skill_health+3;
+        break;
+    }
+
+    $fig->current_health = $fig->skill_health;
+    $fig->level = $fig->level+1;
+
+    $fightersTable->save($fig);
+  }
 }

@@ -36,3 +36,11 @@ echo $this->Form->create();
 echo $this->Form->control("Fighter Name",['name'=>'fighter_name']);
 echo $this->Form->submit();
 echo $this->Form->end();?>
+
+NUMBER OF UPGRADES LEFT : <?php echo $upgradesLeft;?> <br>
+Which upgrade do you choose ?
+<?php 
+echo $this->Form->create(null, ['url' => ['action' => 'upgrade']]);
+echo $this->Form->radio('upgradeType',['+1 sight', '+1 strength', '+3 HP']);
+echo $this->Form->submit();
+echo $this->Form->end();?>
