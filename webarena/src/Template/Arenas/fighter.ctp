@@ -26,10 +26,13 @@
 
 </dl>
 CREATE NEW FIGHTER : 
-<?php echo $this->Form->create();
-echo $this->Form->control("Fighter Name");
-//echo $this->Form->control("");
+<?php  
+echo $this->Form->create('Upload', array('type' => 'file'));
+echo $this->Form->file('file');
+echo $this->Form->submit('Upload');
+echo $this->Html->image("avatars/$FighterId.jpg", ['alt' => 'avatar']);
 
-
+echo $this->Form->create();
+echo $this->Form->control("Fighter Name",['name'=>'fighter_name']);
 echo $this->Form->submit();
 echo $this->Form->end();?>
