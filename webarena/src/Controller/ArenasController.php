@@ -137,12 +137,19 @@ class ArenasController  extends AppController
     $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2));
     // $this->set('messagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2)->message);
   }
+<<<<<<< HEAD
 
   public function upgrade()
   {
     $id = 2;
     $this->loadModel('Fighters');
     $fig = $this->Fighters->getFighter($id);
+=======
+ $this->set('FighterId',$this->Fighters->getFighter($id)->id);
+$this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
+$this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
+$this->set('FighterSkillSight',$this->Fighters->getFighter($id)->skill_sight);
+>>>>>>> 057f22774895c28e6f6d28f4e6a481f8335e3489
 
     $upgradesLeft = floor((($fig->xp)/4) - $fig->level);
     echo ($fig->xp/4);

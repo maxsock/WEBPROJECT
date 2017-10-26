@@ -17,6 +17,7 @@ $this->assign("title",...);
 */
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,30 +31,55 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+    <?php echo $this->Html->css('foundation.min'); ?>
+    <?php echo $this->Html->css('app.css'); ?>
+
+   <?php echo $this->Html->script('vendor/jquery.js');
+    echo $this->Html->script('vendor/fastclick.js');
+    echo $this->Html->script('foundation.min.js'); ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        
-        <div class="top-bar-section">
-            <ul class="left">
-                <li><?php echo $this->Html->link("Home",["controller"=>"Arenas", "action"=>"index"]);?></li>
-                <li><?php echo $this->Html->link("Login",["controller"=>"Arenas", "action"=>"login"]);?></li>
-                <li> <?php echo $this->Html->link("Fighter",["controller"=>"Arenas", "action"=>"fighter"]);?> </li>
-                <li> <?php echo $this->Html->link("View",["controller"=>"Arenas", "action"=>"sight"]);?> </li>
-                <li> <?php echo $this->Html->link("Diary",["controller"=>"Arenas", "action"=>"diary"]);?> </li>
+    
 
-            </ul>
-        </div>
-    </nav>
+
+
+
+<div class="top-bar" >
+  <div class="top-bar-left">
+    <ul class=" menu" >
+      <li class="menu-text">FIGHTERS ARENA</li>
+      <li > <?php echo $this->Html->link("Home",["controller"=>"Arenas", "action"=>"index"]);?> </li>
+      <li><?php echo $this->Html->link("Login",["controller"=>"Arenas", "action"=>"login"]);?></li>
+      <li> <?php echo $this->Html->link("Fighter",["controller"=>"Arenas", "action"=>"fighter"]);?></li>
+      <li> <?php echo $this->Html->link("View",["controller"=>"Arenas", "action"=>"sight"]);?> </li>
+      <li> <?php echo $this->Html->link("Diary",["controller"=>"Arenas", "action"=>"diary"]);?> </li>
+       <li> <?php echo $this->Html->link("Messages",["controller"=>"Arenas", "action"=>"messages"]);?> </li>
+    </ul>
+  </div>
+  
+  </div>
+
+
+
+
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
     </div>
-    <footer>
-    </footer>
+  <div id="footer">
+            <div class='row'>
+                <div class='large-12 columns'>
+                    <p> SI TD 03 </p>
+                </div>
+            </div>
+        </div>
+  
+  <script>
+      $(document).foundation();
+    </script>
 </body>
 </html>
