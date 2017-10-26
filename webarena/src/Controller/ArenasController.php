@@ -96,7 +96,7 @@ public function sight()
       $this->Events->addMoveEvent(array($fighter,$this->request->data['dir'],Time::now()));
     }
   }
-
+ $this->set('FighterId',$this->Fighters->getFighter($id)->id);
 $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
 $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
 $this->set('FighterSkillSight',$this->Fighters->getFighter($id)->skill_sight);
