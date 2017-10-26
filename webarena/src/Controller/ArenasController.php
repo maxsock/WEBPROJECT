@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Controller\AppController;
 use Cake\I18n\Time;
+use Cake\Utility\Hash;
 /**
 * Personal Controller
 * User personal interface
@@ -87,11 +88,12 @@ public function sight()
 
     if($this->request->data['attack'])
     {
-      $this->Events->addAttackEvent($this->Fighters->attack($this->request->data['dir'], $fighter));
+      $this->Events->addAttackEvent(array_merge($this->Fighters->attack($this->request->data['dir'], $fighter),array($fighter,Time::now())));
     }
     else
     {
-      $this->Events->addMoveEvent($this->Fighters->move($this->request->data['dir'], $fighter));
+      $this->Fighters->move($this->request->data['dir'], $fighter);
+      $this->Events->addMoveEvent(array($fighter,$this->request->data['dir'],Time::now()));
     }
   }
 

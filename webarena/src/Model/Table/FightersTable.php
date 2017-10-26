@@ -47,7 +47,7 @@ class FightersTable extends Table{
     $fighter = $fightersTable->get($fig->id);
     $fighterAttacked = $fightersTable->newEntity();
 
-    $arrayName = array('',0,0);
+    $arrayName = array($fighterAttacked,0,0);
 
     if($dir=='GO UP'){
       $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y-1)->first();
@@ -64,22 +64,26 @@ class FightersTable extends Table{
 
     if ($fighterAttacked != null)
     {
-      $arrayName[0]=$fighterAttacked->name;
-      $arrayName[1]=1;
-      $fighterAttacked->current_health = $fighterAttacked->current_health - $fighter->skill_strength;
-      $fightersTable->save($fighterAttacked);
-
-      if($fighterAttacked->current_health<=0)
+      $arrayName[0]=$fighterAttacked;
+      if(rand(1,20)>10+$fighterAttacked->level-$fighter->level)
       {
-        $exp=$fighterAttacked->level;
-        $arrayName[1]=$exp;
-        $arrayName[2]=1;
-        $query = $fightersTable->delete($fighterAttacked);
-      }
+        $arrayName[1]=1;
+        $fighterAttacked->current_health = $fighterAttacked->current_health - $fighter->skill_strength;
+        $fightersTable->save($fighterAttacked);
 
+        if($fighterAttacked->current_health<=0)
+        {
+          $arrayName[1]=$fighterAttacked->level;
+          $arrayName[2]=1;
+          $query = $fightersTable->delete($fighterAttacked);
+        }
+      }
+    }
+    else
+    {
+      $arrayName[1]=-1;
     }
     return $arrayName;
-
   }
   public function move($dir, $fighter){
     $fightersTable = TableRegistry::get('Fighters');
