@@ -4,10 +4,9 @@ namespace App\Model\Table;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 
-class FightersTable extends Table
-{
- public function add($newTuple)
-  {
+class FightersTable extends Table{
+
+  public function add($newTuple) {
     $fightersTable = TableRegistry::get('Fighters');
     $newFighter = $fightersTable->newEntity();
 
@@ -26,28 +25,22 @@ class FightersTable extends Table
 
     $fightersTable->save($newFighter);
   }
-
-  public function getFighter($id)
-  {
-      $query = $this->find('all')->where(["Fighters.id" => $id])->first();
-      return($query);
+  public function getFighter($id){
+    $query = $this->find('all')->where(["Fighters.id" => $id])->first();
+    return($query);
   }
-
   public function getAllFighters(){
     $fightersTable = $this->find('all');
     return ($fightersTable);
   }
+  public function update ($array){
 
-
-  public function update ($array)
-  {
     $fightersTable = TableRegistry::get('fighters');
     $fighter = $fightersTable->get($array->id);
 
     $fighter = $array;
     $fightersTable->save($fighter);
   }
-
   public function attack($dir,$fig){
 
     $fightersTable = TableRegistry::get('fighters');
@@ -88,33 +81,64 @@ class FightersTable extends Table
     return $arrayName;
 
   }
-
-  public function move($dir, $fighter)
-  {
+  public function move($dir, $fighter){
     $fightersTable = TableRegistry::get('Fighters');
+    $allFighters = $this->find('all');
     $height = 10;
     $length = 15;
+    $canMove=true;
 
     if($dir=='GO UP' && $fighter->coordinate_y>0)
     {
-      $fighter->coordinate_y = $fighter->coordinate_y -1;
-      $fightersTable->save($fighter);
+      foreach ($allFighters as $f) {
+        if($f->coordinate_x == $fighter->coordinate_x && $f->coordinate_y == $fighter->coordinate_y-1){
+          $canMove=false;
+        }
+      }
+      if($canMove==true){
+        $fighter->coordinate_y = $fighter->coordinate_y -1;
+        $fightersTable->save($fighter);
+      }
     }
     if($dir=='GO DOWN' && $fighter->coordinate_y<$height-1)
     {
-      $fighter->coordinate_y = $fighter->coordinate_y+1;
-      $fightersTable->save($fighter);
+      foreach ($allFighters as $f) {
+        if($f->coordinate_x == $fighter->coordinate_x && $f->coordinate_y == $fighter->coordinate_y+1){
+          $canMove=false;
+        }
+      }
+      if($canMove==true){
+        $fighter->coordinate_y = $fighter->coordinate_y+1;
+        $fightersTable->save($fighter);
+      }
+
     }
     if($dir=='GO LEFT' && $fighter->coordinate_x>0)
     {
-      $fighter->coordinate_x = $fighter->coordinate_x-1;
-      $fightersTable->save($fighter);
-    }
-    if($dir=='GO RIGHT' && $fighter->coordinate_x<$length-1)
-    {
-      $fighter->coordinate_x = $fighter->coordinate_x+1;
-      $fightersTable->save($fighter);
+      foreach ($allFighters as $f) {
+        if($f->coordinate_x == $fighter->coordinate_x-1 && $f->coordinate_y == $fighter->coordinate_y){
+          $canMove=false;
+        }
+      }
+      if($canMove==true){
+        $fighter->coordinate_x = $fighter->coordinate_x-1;
+        $fightersTable->save($fighter);
+      }
     }
 
-}
+    if($dir=='GO RIGHT' && $fighter->coordinate_x<$length-1)
+    {
+      foreach ($allFighters as $f) {
+        if($f->coordinate_x == $fighter->coordinate_x+1 && $f->coordinate_y == $fighter->coordinate_y){
+          $canMove=false;
+        }
+      }
+      if($canMove==true){
+        $fighter->coordinate_x = $fighter->coordinate_x+1;
+        $fightersTable->save($fighter);
+      }
+
+    }
+  }
+
 }
