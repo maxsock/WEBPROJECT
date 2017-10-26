@@ -43,16 +43,16 @@
   <div class="large-1 medium-1"></div>
   <div class="large-1 medium-1 small-1">
 <?php echo $this->Form->create();?>
-<?php echo $this->Form->submit('    UP   ',['name'=>'dir','class'=>'button']);?>
+<?php echo $this->Form->submit('UP',['name'=>'dir','class'=>'button']);?>
 </div>
 </div>
 <div class="grid-x ">
  <div class="large-1 medium-1 small-12">
-  <?php echo $this->Form->submit('  LEFT ',['name'=>'dir','class'=>'button']);?> </div>  
+  <?php echo $this->Form->submit('LEFT',['name'=>'dir','class'=>'button']);?> </div>  
 <div class="large-1 medium-1 small-12">
-<?php echo $this->Form->submit(' DOWN',['name'=>'dir','class'=>'button']);?> </div> 
+<?php echo $this->Form->submit('DOWN',['name'=>'dir','class'=>'button']);?> </div> 
 <div class="large-1 medium-1 small-12">
-<?php echo $this->Form->submit(' RIGHT',['name'=>'dir','class'=>'button']);?> </div>
+<?php echo $this->Form->submit('RIGHT',['name'=>'dir','class'=>'button']);?> </div>
 </div>
 <div class="grid-x">
 <?php echo $this->Form->control('attack',['type' => 'checkbox']);

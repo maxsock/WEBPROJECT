@@ -59,16 +59,16 @@ class EventsTable extends Table
 
 		switch ($newTuple[1]) 
 		{
-			case 'GO UP':
+			case 'UP':
 				$dir = 'up';
 				break;
-			case 'GO DOWN':
+			case 'DOWN':
 				$dir = 'down';
 				break;
-			case 'GO LEFT':
+			case 'LEFT':
 				$dir = 'left';
 				break;
-			case 'GO RIGHT':
+			case 'RIGHT':
 				$dir = 'right';
 				break;
 		}

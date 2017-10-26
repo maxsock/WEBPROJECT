@@ -102,6 +102,7 @@ class ArenasController  extends AppController
   $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
   $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
   $this->set('FighterSkillSight',$this->Fighters->getFighter($id)->skill_sight);
+  $this->set('FighterId',$this->Fighters->getFighter($id)->id);
 
   $this->set('fightersTable', $this->Fighters->getAllFighters());
   }

@@ -49,16 +49,16 @@ class FightersTable extends Table{
 
     $arrayName = array($fighterAttacked,0,0);
 
-    if($dir=='GO UP'){
+    if($dir=='UP'){
       $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y-1)->first();
     }
-    if($dir=='GO DOWN'){
+    if($dir=='DOWN'){
       $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y+1)->first();
     }
-    if($dir=='GO LEFT'){
+    if($dir=='LEFT'){
       $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x-1,$fighter->coordinate_y)->first();
     }
-    if($dir=='GO RIGHT'){
+    if($dir=='RIGHT'){
       $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x+1,$fighter->coordinate_y)->first();
     }
 
@@ -92,7 +92,7 @@ class FightersTable extends Table{
     $length = 15;
     $canMove=true;
 
-    if($dir=='GO UP' && $fighter->coordinate_y>0)
+    if($dir=='UP' && $fighter->coordinate_y>0)
     {
       foreach ($allFighters as $f) {
         if($f->coordinate_x == $fighter->coordinate_x && $f->coordinate_y == $fighter->coordinate_y-1){
@@ -104,7 +104,7 @@ class FightersTable extends Table{
         $fightersTable->save($fighter);
       }
     }
-    if($dir=='GO DOWN' && $fighter->coordinate_y<$height-1)
+    if($dir=='DOWN' && $fighter->coordinate_y<$height-1)
     {
       foreach ($allFighters as $f) {
         if($f->coordinate_x == $fighter->coordinate_x && $f->coordinate_y == $fighter->coordinate_y+1){
@@ -117,7 +117,7 @@ class FightersTable extends Table{
       }
 
     }
-    if($dir=='GO LEFT' && $fighter->coordinate_x>0)
+    if($dir=='LEFT' && $fighter->coordinate_x>0)
     {
       foreach ($allFighters as $f) {
         if($f->coordinate_x == $fighter->coordinate_x-1 && $f->coordinate_y == $fighter->coordinate_y){
@@ -130,7 +130,7 @@ class FightersTable extends Table{
       }
     }
 
-    if($dir=='GO RIGHT' && $fighter->coordinate_x<$length-1)
+    if($dir=='RIGHT' && $fighter->coordinate_x<$length-1)
     {
       foreach ($allFighters as $f) {
         if($f->coordinate_x == $fighter->coordinate_x+1 && $f->coordinate_y == $fighter->coordinate_y){
