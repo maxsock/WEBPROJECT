@@ -77,6 +77,7 @@ public function sight()
   $length = 15;
 
   $this->loadModel('Fighters');
+  $this->loadModel('Events');
   $this->set('h', $height);
   $this->set('l', $length);
 
@@ -86,11 +87,11 @@ public function sight()
 
     if($this->request->data['attack'])
     {
-      $this->Fighters->attack($this->request->data['dir'], $fighter);
+      $this->Events->addAttackEvent($this->Fighters->attack($this->request->data['dir'], $fighter));
     }
     else
     {
-      $this->Fighters->move($this->request->data['dir'], $fighter);
+      $this->Events->addMoveEvent($this->Fighters->move($this->request->data['dir'], $fighter));
     }
   }
 
