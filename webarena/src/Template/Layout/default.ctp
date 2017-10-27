@@ -34,14 +34,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('foundation.min'); ?>
     <?= $this->Html->css('app'); ?>
 
-   <?php echo $this->Html->script('vendor/jquery.js');
-    echo $this->Html->script('vendor/fastclick.js');
-    echo $this->Html->script('foundation.min.js'); ?>
-
+ 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
     <?= $this->Html->script('jquery-3.2.1.min'); ?>
+    <?= $this->Html->script('vendor/jquery.js');?>
+      <?= $this->Html->script('foundation.min.js'); ?> 
+    <?= $this->Html->script('what-input.js'); ?> 
 </head>
 <body>
 
