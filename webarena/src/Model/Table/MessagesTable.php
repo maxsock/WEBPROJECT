@@ -6,7 +6,7 @@ use Cake\ORM\TableRegistry;
 
 class MessagesTable extends Table
 {
-  public function addMessage2($newTuple = null)
+  public function addMessage($newTuple)
   {
     $messagesTable = TableRegistry::get('Messages');
     $newMessage = $messagesTable->newEntity();
@@ -14,8 +14,8 @@ class MessagesTable extends Table
     $newMessage->date = $newTuple[0];
     $newMessage->title = $newTuple[1];
     $newMessage->message = $newTuple[2];
-    $newMessage->fighter_id_from = '1'; //changer par récupération de l'id de la session ouverte qd sessions ok
-    $newMessage->fighter_id = $newTuple[4]; //changer par la suite qd sessions ok
+    $newMessage->fighter_id_from = $newTuple[3];
+    $newMessage->fighter_id = $newTuple[4];
 
     $res = $messagesTable->save($newMessage);
 
