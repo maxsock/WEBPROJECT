@@ -163,11 +163,10 @@ class FightersTable extends Table{
         break;
       
       case 2:
-      $fig->skill_health = $fig->skill_health+3;
+        $fig->skill_health = $fig->skill_health+3;
+        $fig->current_health = $fig->skill_health;
         break;
     }
-
-    $fig->current_health = $fig->skill_health;
     $fig->level = $fig->level+1;
 
     $fightersTable->save($fig);
