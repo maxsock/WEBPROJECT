@@ -31,24 +31,24 @@ class ArenasController  extends AppController
 
       $array=$this->Fighters->getFighter($id);
 
-      
+
       if($array->current_health == '0')
       {
           $entity = $this->Fighters->get($id);
           $result = $this->Fighters->delete($entity);
-          
+
           if($this->request->is('post'))
           {
               $array->id=$id;
               $array->name= $this->request->data['fighter_name'];
-              $this->Fighters->newFighter($array); 
+              $this->Fighters->newFighter($array);
           }
       }
-      
-      if (!empty($this->request->data['file'])) 
+
+      if (!empty($this->request->data['file']))
       {
           $avatar = $this->request->data['file'];
-              
+
           if ($avatar['type'] == 'image/png' or $avatar['type'] == 'image/jpeg' or $avatar['type'] == 'image/gif')
           {
               move_uploaded_file($avatar['tmp_name'], WWW_ROOT . 'img/avatars/' . "$id.jpg");
@@ -109,26 +109,62 @@ class ArenasController  extends AppController
 
   public function addMessage()
   {
+
       if ($this->request->is('post'))
       {
-          $id_from = 1;
+          $id_from = '1';
           $this->loadModel('Fighters');
-          $userTo = $this->Fighters->findByName($this->request->getData()['To'])->first()->id;
-
+          $userTo = $this->request->getData()['To'];
           $array = array(Time::now(), $this->request->getData()['Title'], $this->request->getData()['Message'], $id_from, $userTo);
 
           $this->loadModel('Messages');
-          $this->Messages->addMessage($array);
+          $res = $this->Messages->addMessage2($array);
+
+          if($res != null){
+            return $this->redirect(['controller' => 'arenas', 'action' => 'messages']);
+          }else{
+
+          }
+
+
       }
   }
+  public function initialize()
+          {
+              parent::initialize();
+              $this->loadComponent('Flash');
+              $this->loadComponent('RequestHandler');
+
+          }
+
+  public function liste(){
+
+              $this->loadModel('Messages');
+              $this->loadModel('Fighters');
+
+              $sendToId = $this->request->data['prix'];
+
+                $this->set('toFighter', $this->Fighters->getFighter($sendToId));
+                $this->set('produits', $this->Messages->getAllMessagesFromBoth(1, $sendToId));
+
+
+  }
+
+
+
 
   public function diary()
   {
 
   }
 
-  public function messages()
-  {
+  public function messages(){
+
+    $this->loadModel('Fighters');
+    $this->set('fightersTable', $this->Fighters->getAllFighters());
+    $this->set('fightersNameAndId', $this->Fighters->getFightersNameAndId());
+
+
     $this->loadModel('Messages');
     $this->set('lastMessageIdFrom', $this->Messages->getLastMessage()->message);
     $this->set('lastMessageDate', $this->Messages->getLastMessage()->date);
@@ -136,7 +172,8 @@ class ArenasController  extends AppController
     $this->set('lastMessageFromBoth', $this->Messages->getLastMessageFromBoth(1, 2));
 
     $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2));
-    // $this->set('messagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2)->message);
+
+
   }
 
   public function upgrade()
