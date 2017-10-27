@@ -55,7 +55,7 @@ class ArenasController  extends AppController
           }
       }
 
-
+      $this->set('avatar','image/png');
       $this->set('FighterName',$this->Fighters->getFighter($id)->name);
       $this->set('FighterId',$this->Fighters->getFighter($id)->id);
       $this->set('FighterLevel',$this->Fighters->getFighter($id)->level);
@@ -103,6 +103,7 @@ class ArenasController  extends AppController
   $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
   $this->set('FighterSkillSight',$this->Fighters->getFighter($id)->skill_sight);
   $this->set('FighterId',$this->Fighters->getFighter($id)->id);
+  $this->set('avatar','image/png');
 
   $this->set('fightersTable', $this->Fighters->getAllFighters());
   }
