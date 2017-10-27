@@ -151,7 +151,13 @@ class ArenasController  extends AppController
 
   public function diary()
   {
+    $id = $this->fighterId;
 
+    $this->loadModel('Events');
+    $this->loadModel('Fighters');
+
+    $fig = $this->Fighters->getFighter($id);
+    $this->set('eventsTable', $this->Events->diary($fig));
   }
 
   public function messages()

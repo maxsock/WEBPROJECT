@@ -3,6 +3,7 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
 class EventsTable extends Table
 {
@@ -41,7 +42,7 @@ class EventsTable extends Table
 	public function addMoveEvent($newTuple)
 	{
 		$eventsTable = TableRegistry::get('Events');
-		$newEvent = $eventsTable->newEntity(); //Create a new Fighter entity
+		$newEvent = $eventsTable->newEntity(); //Create a new Event entity
 		$dir = '';
 
 		switch ($newTuple[1]) //switch on the direction and set the variable $dir
@@ -66,5 +67,24 @@ class EventsTable extends Table
 		$newEvent->coordinate_y = $newTuple[0]->coordinate_y; //Set the event y coordinate
 
 		$eventsTable->save($newEvent); //Add a new event in the events table
+	}
+
+	public function diary($fig)
+	{
+		$eventsTable = TableRegistry::get('Events')->find();
+		$fileteredEvents = array();
+
+		foreach ($eventsTable as $e) 
+		{
+			if($e->date->wasWithinLast('1 day'))
+			{
+				if((abs($e->coordinate_x-$fig->coordinate_x)+abs($e->coordinate_y-$fig->coordinate_y)) <= $fig->skill_sight)
+				{
+					array_push($fileteredEvents, $e);
+				}
+			}
+		}
+		arsort($fileteredEvents);
+		return $fileteredEvents;
 	}
 }
