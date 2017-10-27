@@ -31,8 +31,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
-    <?php echo $this->Html->css('foundation.min'); ?>
-    <?php echo $this->Html->css('app.css'); ?>
+    <?= $this->Html->css('foundation.min'); ?>
+    <?= $this->Html->css('app'); ?>
 
    <?php echo $this->Html->script('vendor/jquery.js');
     echo $this->Html->script('vendor/fastclick.js');

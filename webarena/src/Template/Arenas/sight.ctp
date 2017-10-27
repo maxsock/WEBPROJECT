@@ -31,7 +31,7 @@
         }
 
     }?>
-        <td class="td-table"><?php echo $char; ?></td>
+        <td class="td-tables"><?php echo $char; ?></td>
       <?php } ?>
     </tr>
   <?php } ?>
