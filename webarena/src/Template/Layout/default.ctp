@@ -12,7 +12,7 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-/* <?= ..... ? > = <?php echo... > 
+/* <?= ..... ? > = <?php echo... >
 $this->assign("title",...);
 */
 $cakeDescription = 'CakePHP: the rapid development php framework';
@@ -21,7 +21,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <!DOCTYPE html>
 <html>
 <head>
-    <?= $this->Html->charset() ?> 
+    <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <?= $cakeDescription ?>:
@@ -41,9 +41,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <?= $this->Html->script('jquery-3.2.1.min'); ?>
 </head>
 <body>
-    
+
 
 
 
@@ -60,7 +61,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
        <li> <?php echo $this->Html->link("Messages",["controller"=>"Arenas", "action"=>"messages"]);?> </li>
     </ul>
   </div>
-  
+
   </div>
 
 
@@ -77,7 +78,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 </div>
             </div>
         </div>
-  
+
   <script>
       $(document).foundation();
     </script>

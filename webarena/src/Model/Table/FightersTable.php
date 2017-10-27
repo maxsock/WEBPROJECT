@@ -149,7 +149,7 @@ class FightersTable extends Table{
   {
     $fightersTable = TableRegistry::get('Fighters');
 
-    switch ($choice) 
+    switch ($choice)
     {
       case 0:
         $fig->skill_sight = $fig->skill_sight+1;
@@ -158,7 +158,7 @@ class FightersTable extends Table{
       case 1:
         $fig->skill_strength = $fig->skill_strength+1;
         break;
-      
+
       case 2:
       $fig->skill_health = $fig->skill_health+3;
         break;
@@ -168,5 +168,21 @@ class FightersTable extends Table{
     $fig->level = $fig->level+1;
 
     $fightersTable->save($fig);
+  }
+
+
+//functions used for message option
+  public function getFightersNameAndId(){
+
+  $query = $this->find('list', ['fields' => ['id', 'name']]);
+    return ($query->toArray());
+  }
+  
+  public function getFightersId(){
+    $fightersId = $this->find('list', array(
+        'fields' => array('Fighters.id')
+    ));
+
+    return $fightersId;
   }
 }
