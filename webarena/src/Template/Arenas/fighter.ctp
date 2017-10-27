@@ -2,7 +2,7 @@
 <div class="grid-container background cell">
 <div class="grid-x margin-x">
   <div class="large-2 medium-1 small-1 cell">
-<?php echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($FighterId.jpg)", ['alt' => 'avatar','class'=>'th [radius]']); ?> </div> 
+<?php echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar','class'=>'th [radius]']); ?> </div> 
  <div class="large-10 medium-1 small-1 cell ">
 <ul class="no-bullet">
     <div class="grid-x text-center">
@@ -10,7 +10,7 @@
         <li> <h2> <?php echo $FighterName;?> </h2> </li> 
     </div>
     </div>
-    <div class="grid-x margin-x">
+    <div class="grid-x margin-x test">
     <div class="large-2 medium-1 small-1 cell">
     <li> Level :  <?php echo $FighterLevel;?> </li>
     </div>
@@ -41,7 +41,6 @@ CREATE NEW FIGHTER :
 echo $this->Form->create('Upload', array('type' => 'file'));
 echo $this->Form->file('file');
 echo $this->Form->submit('Upload');
-//echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($FighterId.jpg)", ['alt' => 'avatar']);
 
 echo $this->Form->create();
 echo $this->Form->control("Fighter Name",['name'=>'fighter_name']);

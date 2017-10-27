@@ -48,7 +48,7 @@ class ArenasController  extends AppController
       if (!empty($this->request->data['file']))
       {
           $avatar = $this->request->data['file'];
-
+          $this->set('avatar',$avatar['type']);
           if ($avatar['type'] == 'image/png' or $avatar['type'] == 'image/jpeg' or $avatar['type'] == 'image/gif')
           {
               move_uploaded_file($avatar['tmp_name'], WWW_ROOT . 'img/avatars/' . "$id.jpg");
