@@ -6,58 +6,45 @@ use Cake\ORM\TableRegistry;
 
 class EventsTable extends Table
 {
-	public function add($newTuple)
-	{
-		$eventsTable = TableRegistry::get('Events');
-		$newEvent = $eventsTable->newEntity();
-
-		$newEvent->name = $newTuple[0];
-		$newEvent->date = $newTuple[1];
-		$newEvent->coordinate_x = $newTuple[2];
-		$newEvent->coordinate_y = $newTuple[3];
-
-		$eventsTable->save($newEvent);
-	}
-
 	public function addAttackEvent($newTuple)
 	{
 		$eventsTable = TableRegistry::get('Events');
-		$newEvent = $eventsTable->newEntity();
+		$newEvent = $eventsTable->newEntity(); //Create a new Fighter entity
 
 		if($newTuple[1] > 0) //He suceeded his attack
 		{
 			if($newTuple[2] == 1) //He killed his opponent
 			{
-				$newEvent->name = $newTuple[3]->name.' killed '.$newTuple[0]->name.' by dealing '.$newTuple[3]->skill_strength.' of damage';
+				$newEvent->name = $newTuple[3]->name.' killed '.$newTuple[0]->name.' by dealing '.$newTuple[3]->skill_strength.' of damage'; //Set the event name as "Player1 killed Player2 by dealing x of damage"
 			}
 			else
 			{
-				$newEvent->name = $newTuple[3]->name.' dealt '.$newTuple[3]->skill_strength.' of damage to '.$newTuple[0]->name;
+				$newEvent->name = $newTuple[3]->name.' dealt '.$newTuple[3]->skill_strength.' of damage to '.$newTuple[0]->name; //Set the event name as "Player1 dealt x of damage to Player2"
 			}
 		}
-		if ($newTuple[1] == 0) 
+		if ($newTuple[1] == 0) //He failed his attack
 		{
-			$newEvent->name = $newTuple[3]->name.' failed his attack on '.$newTuple[0]->name;
+			$newEvent->name = $newTuple[3]->name.' failed his attack on '.$newTuple[0]->name; //Set the event name as "Player1 failed his attack on Player2"
 		}
-		if ($newTuple[1] < 0) 
+		if ($newTuple[1] < 0) //The case he was aiming for does not contain an opponent
 		{
-			$newEvent->name = $newTuple[3]->name.' attacked but was not aiming at an opponent';
+			$newEvent->name = $newTuple[3]->name.' attacked but was not aiming at an opponent'; //Set the event name as "Player1 was not aiming at an opponent"
 		}
 
-		$newEvent->date = $newTuple[4];
-		$newEvent->coordinate_x = $newTuple[3]->coordinate_x;
-		$newEvent->coordinate_y = $newTuple[3]->coordinate_y;
+		$newEvent->date = $newTuple[4]; //Set the event date
+		$newEvent->coordinate_x = $newTuple[3]->coordinate_x; //Set the event x coordinate 
+		$newEvent->coordinate_y = $newTuple[3]->coordinate_y; //Set the event y coordinate 
 
-		$eventsTable->save($newEvent);
+		$eventsTable->save($newEvent); //Add a new event in the events table
 	}
 
 	public function addMoveEvent($newTuple)
 	{
 		$eventsTable = TableRegistry::get('Events');
-		$newEvent = $eventsTable->newEntity();
+		$newEvent = $eventsTable->newEntity(); //Create a new Fighter entity
 		$dir = '';
 
-		switch ($newTuple[1]) 
+		switch ($newTuple[1]) //switch on the direction and set the variable $dir
 		{
 			case 'UP':
 				$dir = 'up';
@@ -73,11 +60,11 @@ class EventsTable extends Table
 				break;
 		}
 
-		$newEvent->name = $newTuple[0]->name.' went '.$dir;
-		$newEvent->date = $newTuple[2];
-		$newEvent->coordinate_x = $newTuple[0]->coordinate_x;
-		$newEvent->coordinate_y = $newTuple[0]->coordinate_y;
+		$newEvent->name = $newTuple[0]->name.' went '.$dir; //Set the event name as "Player1 went $dir"
+		$newEvent->date = $newTuple[2]; //Set the event date
+		$newEvent->coordinate_x = $newTuple[0]->coordinate_x; //Set the event x coordinate 
+		$newEvent->coordinate_y = $newTuple[0]->coordinate_y; //Set the event y coordinate
 
-		$eventsTable->save($newEvent);
+		$eventsTable->save($newEvent); //Add a new event in the events table
 	}
 }

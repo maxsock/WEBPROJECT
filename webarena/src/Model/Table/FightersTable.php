@@ -68,15 +68,18 @@ class FightersTable extends Table{
       if(rand(1,20)>10+$fighterAttacked->level-$fighter->level)
       {
         $arrayName[1]=1;
+        $fighter->xp = $fighter->xp + 1;
         $fighterAttacked->current_health = $fighterAttacked->current_health - $fighter->skill_strength;
         $fightersTable->save($fighterAttacked);
 
         if($fighterAttacked->current_health<=0)
         {
+          $fighter->xp = $fighter->xp + $fighterAttacked->level -1;
           $arrayName[1]=$fighterAttacked->level;
           $arrayName[2]=1;
           $query = $fightersTable->delete($fighterAttacked);
         }
+        $fightersTable->save($fighter);
       }
     }
     else
