@@ -1,11 +1,11 @@
 <div class="grid-container">
 <div class="grid-x align-center">
-  <div class="large-6 medium-6 cell">
+  <div class="large-8 medium-8 small-12 cell">
 <table class="unstriped">
   <?php
   for($i=0;$i<$h;$i++)
   { ?>
-    <tr><?php
+    <tr class="td-tables"><?php
     for($j=0;$j<$l;$j++)
     {
       if ($i== $FighterCoordY && $j== $FighterCoordX)
@@ -16,18 +16,18 @@
       {
         if(abs($i-$FighterCoordY)+abs($j-$FighterCoordX)<=$FighterSkillSight)
         {
-          $char =' ';
+          $char =$this->Html->image("decor/view.png", ['alt' => 'view','class' => 'image-size']);
           foreach ($fightersTable as $f)
           {
             if($i== $f->coordinate_y && $j== $f->coordinate_x)
             {
-                $char=$this->Html->image("avatars/ennemi.jpg", ['alt' => 'avatar']);
+                $char=$this->Html->image("avatars/ennemi.jpg", ['alt' => 'ennemi']);
             }
           }
         }
         else
         {
-          $char=$this->Html->image("decor/wall.png", ['alt' => 'wall']);;
+          $char=$this->Html->image("decor/grass.png", ['alt' => 'wall','class' => 'image-size']);
         }
 
     }?>
@@ -39,24 +39,31 @@
 </div>
 </div>
 
-<div class="grid-x">
-  <div class="large-1 medium-1"></div>
-  <div class="large-1 medium-1 small-1">
+<div class="grid-x align-center">
 <?php echo $this->Form->create();?>
-<?php echo $this->Form->submit('UP',['name'=>'dir','class'=>'button']);?>
+  <div class="cell small-2  text-center">
+<?php echo $this->Form->submit('UP',['name'=>'dir','class'=>'button large']);?>
 </div>
 </div>
-<div class="grid-x ">
- <div class="large-1 medium-1 small-12">
-  <?php echo $this->Form->submit('LEFT',['name'=>'dir','class'=>'button']);?> </div>  
-<div class="large-1 medium-1 small-12">
-<?php echo $this->Form->submit('DOWN',['name'=>'dir','class'=>'button']);?> </div> 
-<div class="large-1 medium-1 small-12">
-<?php echo $this->Form->submit('RIGHT',['name'=>'dir','class'=>'button']);?> </div>
+<div class="grid-x align-center ">
+<div class="cell small-2 text-center ">
+      <?php echo $this->Form->submit('LEFT',['name'=>'dir','class'=>'button large']);?> 
 </div>
-<div class="grid-x">
+    <div class="cell small-2 text-center">
+           <?php echo $this->Form->submit('RIGHT',['name'=>'dir','class'=>'button large']);?> 
+    </div>
+</div>
+ <div class="grid-x align-center ">
+     <div class="cell small-4 text-center ">
+          <?php echo $this->Form->submit('DOWN',['name'=>'dir','class'=>'button large ']);?> 
+     </div>
+    
+</div>
+<div class="grid-x align-center">
 <?php echo $this->Form->control('attack',['type' => 'checkbox']);
 echo $this->Form->end();
-?></div>
+?>
+<span class="show-for-sr">Download Kittens</span>
+</div>
 </div>
 </div>

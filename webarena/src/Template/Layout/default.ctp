@@ -47,13 +47,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 
 
+<div class="title-bar" data-responsive-toggle="nav-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle="nav-menu"></button>
+  <div class="title-bar-title">  Menu</div>
+</div>
+   
 
-
-
-<div class="top-bar" >
+    
+<div class="top-bar"  id="nav-menu">
   <div class="top-bar-left">
-    <ul class=" menu" >
-      <li class="menu-text">FIGHTERS ARENA</li>
+    <ul class=" medium-horizontal vertical dropdown menu" data-responsive-menu="accordion medium-dropdown">
+         <li class="menu-text hide-for-small-only" >FIGHTERS ARENA</li>
       <li > <?php echo $this->Html->link("Home",["controller"=>"Arenas", "action"=>"index"]);?> </li>
       <li><?php echo $this->Html->link("Login",["controller"=>"Arenas", "action"=>"login"]);?></li>
       <li> <?php echo $this->Html->link("Fighter",["controller"=>"Arenas", "action"=>"fighter"]);?></li>
@@ -73,9 +77,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('content') ?>
     </div>
   <div id="footer">
-            <div class='row'>
-                <div class='large-12 columns'>
-                    <p> SI TD 03 </p>
+            <div class='grid-x align-center'>
+                <div class='small-2 cell text-center'>
+                    <small> SI TD 03 </small>
                 </div>
             </div>
         </div>

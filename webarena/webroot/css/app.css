@@ -1,11 +1,17 @@
 .td-tables {
    padding : 0;
-   background-color : grey;
-}
+   margin : 0;
+   border-width : 0;
+   background-image: url("../img/decor/grass.png");
+      
+}  
 
+.image-size {
+    min-height: 30px;
+    min-width: 30px;
+}
 .background {
-    background-color: beige;
-   
+    background-color: beige; 
 }
 
 .test {
