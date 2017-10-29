@@ -42,7 +42,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script('jquery-3.2.1.min'); ?>
     <?= $this->Html->script('vendor/jquery.js');?>
       <?= $this->Html->script('foundation.min.js'); ?> 
-    <?= $this->Html->script('what-input.js'); ?> 
+    <?= $this->Html->script('what-input.js'); ?>
+    <?= $this->Html->script('app.js'); ?>
+    <?php header("Cache-Control: no-cache, must-revalidate"); ?>
+   
+
 </head>
 <body>
 
@@ -68,8 +72,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   </div>
 
   </div>
-
-
 
 
     <?= $this->Flash->render() ?>

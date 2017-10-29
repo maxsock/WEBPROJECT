@@ -14,9 +14,7 @@ class ArenasController  extends AppController
 
   public function index()
   {
-  // $figterlist=$this->Fighters->find('all')->order(["Fighters.level"=>"DESC"])->first();
-  // pr($figterlist->toArray());
-  //$this->set('myname', "Maximilien Sock");
+
   }
 
   public function login()
@@ -26,23 +24,27 @@ class ArenasController  extends AppController
 
   public function fighter()
   {
+ 
     $id = $this->fighterId;
     $this->loadModel('Fighters');
 
     $array=$this->Fighters->getFighter($id);
 
-
-    if($array->current_health == '0')
+   
+    if($array->current_health == '0' or $array->current_health == NULL)
     {
-      $entity = $this->Fighters->get($id);
-      $result = $this->Fighters->delete($entity);
+        $array=$this->Fighters->getFighter($id);
+      $this->Fighters->deleteFighter($id);
 
-      if($this->request->is('post'))
-      {
+      
+         if(isset($this->request->data['add']))
+        {
         $array->id=$id;
         $array->name= $this->request->data['fighter_name'];
         $this->Fighters->newFighter($array);
-      }
+        
+        }
+      
     }
 
     if (!empty($this->request->data['file']))

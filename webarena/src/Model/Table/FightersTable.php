@@ -147,6 +147,46 @@ class FightersTable extends Table{
 
     }
   }
+  public function newFighter($fighterInfo)
+  {
+      $fightersTable = TableRegistry::get('Fighters');
+    $newFighter = $fightersTable::get($fighterInfo->id);
+    
+    $newFighter->name = $fighterInfo->name;
+    $newFighter->id = $fighterInfo->id;
+    $newFighter->player_id = $fighterInfo->player_id;
+    $newFighter->coordinate_x = rand ( '0' , '15' );
+    $newFighter->coordinate_y = rand ( '0' , '10' );
+    $newFighter->level = '1';
+    $newFighter->xp = '0';
+    $newFighter->skill_sight = '2';
+    $newFighter->skill_strength = '1';
+    $newFighter->skill_health =  '5';
+    $newFighter->current_health = '5';
+    $newFighter->next_action_time = NULL;
+    $newFighter->guild_id = NULL;
+
+    $fightersTable->save($newFighter);
+  }
+  public function deleteFighter($id)
+  {
+      $fightersTable = TableRegistry::get('Fighters');
+    $fighter = FightersTable::get($id);
+
+    $fighter->name = NULL;
+    $fighter->coordinate_x = NULL;
+    $fighter->coordinate_y = NULL;
+    $fighter->level = NULL;
+    $fighter->xp = NULL;
+    $fighter->skill_sight = NULL;
+    $fighter->skill_strength = NULL;
+    $fighter->skill_health =  NULL;
+    $fighter->current_health = NULL;
+    $fighter->next_action_time = NULL;
+    $fighter->guild_id = NULL;
+    
+    $fightersTable->save($fighter);
+  }
 
   public function upgrade($fig, $choice)
   {
