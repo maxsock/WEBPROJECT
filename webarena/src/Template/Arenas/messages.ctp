@@ -1,4 +1,4 @@
-<?php
+<div class="grid-container background cell"><?php
 
 echo "Send message to: ";
 
@@ -31,3 +31,4 @@ $(function () {
 
 
 </script>
+</div>

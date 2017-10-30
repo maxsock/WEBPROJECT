@@ -1,3 +1,4 @@
+<div class="grid-container background cell">
 <table>
 	<tr>
 		<th>Date</th>
@@ -17,3 +18,4 @@
 		</tr>
 	<?php } ?>
 </table>
+</div>

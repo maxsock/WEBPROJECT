@@ -37,7 +37,7 @@ echo $this->Form->create('message', ['url' => ['action' => 'addMessage']]);
 echo $this->Form->control("To", ['type' => 'hidden', 'default' => $toFighter['id']]);
 echo $this->Form->control("Title", ['type' => 'text']);
 echo $this->Form->control("Message", ['type' => 'textarea']);
-echo $this->Form->submit();
+echo $this->Form->submit('Send',['class' => 'radius button']);
 echo $this->Form->end();
 
  ?>

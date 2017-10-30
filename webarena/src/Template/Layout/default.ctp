@@ -41,7 +41,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->script('jquery-3.2.1.min'); ?>
     <?= $this->Html->script('vendor/jquery.js');?>
-      <?= $this->Html->script('foundation.min.js'); ?> 
+    <?= $this->Html->script('foundation.min.js'); ?> 
     <?= $this->Html->script('what-input.js'); ?>
     <?= $this->Html->script('app.js'); ?>
     <?php header("Cache-Control: no-cache, must-revalidate"); ?>
@@ -73,7 +73,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
   </div>
 
-
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
@@ -81,7 +80,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <div id="footer">
             <div class='grid-x align-center'>
                 <div class='small-2 cell text-center'>
-                    <small> SI TD 03 </small>
+                    <small> SI TD 03 OPTION BG</small>
                 </div>
             </div>
         </div>

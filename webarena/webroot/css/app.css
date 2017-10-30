@@ -5,13 +5,18 @@
    background-image: url("../img/decor/grass.png");
       
 }  
+.avatar {
+    width:200px;
+    height:auto;
+ 
+}
 
 .image-size {
     min-height: 30px;
     min-width: 30px;
 }
 .background {
-    background-color: beige; 
+    background-color: #E7D29D; 
 }
 
 .test {

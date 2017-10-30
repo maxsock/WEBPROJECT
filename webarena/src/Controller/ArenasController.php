@@ -3,6 +3,9 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\I18n\Time;
 use Cake\Utility\Hash;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
+
 /**
 * Personal Controller
 * User personal interface
@@ -24,7 +27,8 @@ class ArenasController  extends AppController
 
   public function fighter()
   {
- 
+      
+
     $id = $this->fighterId;
     $this->loadModel('Fighters');
 
@@ -34,7 +38,9 @@ class ArenasController  extends AppController
     if($array->current_health == '0' or $array->current_health == NULL)
     {
         $array=$this->Fighters->getFighter($id);
-      $this->Fighters->deleteFighter($id);
+    
+        $file2 = new File(WWW_ROOT . "img/avatars/noimage.jpg", false, 0777);
+         $file2->copy(WWW_ROOT . "img/avatars/$id.jpg");
 
       
          if(isset($this->request->data['add']))
@@ -42,7 +48,7 @@ class ArenasController  extends AppController
         $array->id=$id;
         $array->name= $this->request->data['fighter_name'];
         $this->Fighters->newFighter($array);
-        
+      
         }
       
     }
@@ -105,6 +111,7 @@ class ArenasController  extends AppController
     $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
     $this->set('FighterSkillSight',$this->Fighters->getFighter($id)->skill_sight);
     $this->set('FighterId',$this->Fighters->getFighter($id)->id);
+    $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
     $this->set('avatar','image/png');
 
     $this->set('fightersTable', $this->Fighters->getAllFighters());

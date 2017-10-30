@@ -1,4 +1,4 @@
-<div class="grid-container">
+<div id="hide-map" class="grid-container">
 <div class="grid-x align-center">
   <div class="large-8 medium-8 small-12 cell">
 <table class="unstriped">
@@ -10,7 +10,7 @@
     {
       if ($i== $FighterCoordY && $j== $FighterCoordX)
       {
-          $char = $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar']);
+          $char = $this->Html->image("avatars/$FighterId.jpg", ['alt' => 'avatar', 'class' => 'image-size']);
       }
       else
       {
@@ -67,3 +67,16 @@ echo $this->Form->end();
 </div>
 </div>
 </div>
+
+
+<script>
+    
+$(function () {
+   if(<?php echo $FighterCurrentHealth;?> =='0')
+   {
+       $("#hide-map").hide();
+   }
+  
+} );
+
+ </script>
