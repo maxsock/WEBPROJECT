@@ -3,29 +3,12 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
-class FightersTable extends Table{
-
-  public function add($newTuple) {
-    $fightersTable = TableRegistry::get('Fighters');
-    $newFighter = $fightersTable->newEntity();
-
-    $newFighter->name = $newTuple[0];
-    $newFighter->player_id = $newTuple[1];
-    $newFighter->coordinate_x = $newTuple[2];
-    $newFighter->coordinate_y = $newTuple[3];
-    $newFighter->level = $newTuple[4];
-    $newFighter->xp = $newTuple[5];
-    $newFighter->skill_sight = $newTuple[6];
-    $newFighter->skill_strength = $newTuple[7];
-    $newFighter->skill_health = $newTuple[8];
-    $newFighter->current_health = $newTuple[9];
-    $newFighter->next_action_time = $newTuple[10];
-    $newFighter->guild_id = $newTuple[11];
-
-    $fightersTable->save($newFighter);
-  }
-  public function getFighter($id){
+class FightersTable extends Table
+{
+  public function getFighter($id)
+  {
     $query = $this->find('all')->where(["Fighters.id" => $id])->first();
     return($query);
   }
@@ -33,7 +16,8 @@ class FightersTable extends Table{
     $fightersTable = $this->find('all');
     return ($fightersTable);
   }
-  public function update ($array){
+  public function update ($array)
+  {
 
     $fightersTable = TableRegistry::get('fighters');
     $fighter = $fightersTable->get($array->id);
@@ -41,8 +25,25 @@ class FightersTable extends Table{
     $fighter = $array;
     $fightersTable->save($fighter);
   }
-  public function attack($dir,$fig){
+  public function actions($fig)
+  {
+    $fightersTable = TableRegistry::get('fighters');
+    $fighter = $fightersTable->get($fig->id);
+    $time = Time::now();
+    $ftime = $fighter->next_action_time;
 
+    if(Time::now()->subSeconds(10) > $ftime)
+    {
+      if(Time::now()->subSeconds(3*10) > $ftime)
+      {
+        $fighter->next_action_time = Time::now()->subSeconds(3*10);
+      }
+      $fighter->next_action_time= $fighter->next_action_time->addSeconds(10);
+      $fightersTable->save($fighter);
+    }
+  }
+  public function attack($dir,$fig)
+  {
     $fightersTable = TableRegistry::get('fighters');
     $fighter = $fightersTable->get($fig->id);
     $fighterAttacked = $fightersTable->newEntity();
@@ -161,7 +162,7 @@ class FightersTable extends Table{
     $newFighter->skill_strength = '1';
     $newFighter->skill_health =  '5';
     $newFighter->current_health = '5';
-    $newFighter->next_action_time = NULL;
+    $newFighter->next_action_time = Time::now()->subSeconds(30);;
     $newFighter->guild_id = NULL;
 
     do
@@ -172,26 +173,7 @@ class FightersTable extends Table{
 
     $fightersTable->save($newFighter);
   }
-  public function deleteFighter($id)
-  {
-      $fightersTable = TableRegistry::get('Fighters');
-    $fighter = FightersTable::get($id);
-
-    $fighter->name = NULL;
-    $fighter->coordinate_x = NULL;
-    $fighter->coordinate_y = NULL;
-    $fighter->level = NULL;
-    $fighter->xp = NULL;
-    $fighter->skill_sight = NULL;
-    $fighter->skill_strength = NULL;
-    $fighter->skill_health =  NULL;
-    $fighter->current_health = NULL;
-    $fighter->next_action_time = NULL;
-    $fighter->guild_id = NULL;
-    
-    $fightersTable->save($fighter);
-  }
-
+  
   public function upgrade($fig, $choice)
   {
     $fightersTable = TableRegistry::get('Fighters');
@@ -218,9 +200,9 @@ class FightersTable extends Table{
 
 
 //functions used for message option
-  public function getFightersNameAndId(){
-
-  $query = $this->find('list', ['fields' => ['id', 'name']]);
+  public function getFightersNameAndId($id)
+  {
+    $query = $this->find('list', ['conditions' => ['fighters.id !=' => $id]], ['fields' => ['id', 'name']]);
     return ($query->toArray());
   }
   

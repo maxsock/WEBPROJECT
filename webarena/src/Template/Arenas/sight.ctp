@@ -39,6 +39,8 @@
 </div>
 </div>
 
+Actions left : <?php echo $actionsLeft;?>
+
 <div class="grid-x align-center">
 <?php echo $this->Form->create();?>
   <div class="cell small-2  text-center">

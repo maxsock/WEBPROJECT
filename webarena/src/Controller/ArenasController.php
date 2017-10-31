@@ -108,18 +108,23 @@ class ArenasController  extends AppController
     $this->set('h', $height);
     $this->set('l', $length);
 
+    $actionsLeft = floor(date_diff(Time::now(), $this->Fighters->getFighter($id)->next_action_time)->s /10);
+
     if($this->request->is('post'))
     {
       $fighter=$this->Fighters->getFighter($id);
-
-      if($this->request->data['attack'])
+      if ($actionsLeft > 0)
       {
-        $this->Events->addAttackEvent(array_merge($this->Fighters->attack($this->request->data['dir'], $fighter),array($fighter,Time::now())));
-      }
-      else
-      {
-        $this->Fighters->move($this->request->data['dir'], $fighter);
-        $this->Events->addMoveEvent(array($fighter,$this->request->data['dir'],Time::now()));
+        $this->Fighters->actions($fighter);
+        if($this->request->data['attack'])
+        {
+          $this->Events->addAttackEvent(array_merge($this->Fighters->attack($this->request->data['dir'], $fighter),array($fighter,Time::now())));
+        }
+        else
+        {
+          $this->Fighters->move($this->request->data['dir'], $fighter);
+          $this->Events->addMoveEvent(array($fighter,$this->request->data['dir'],Time::now()));
+        }
       }
     }
 
@@ -129,6 +134,7 @@ class ArenasController  extends AppController
     $this->set('FighterId',$this->Fighters->getFighter($id)->id);
     $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
     $this->set('avatar','image/jpeg');
+    $this->set('actionsLeft',$actionsLeft);
 
     $this->set('fightersTable', $this->Fighters->getAllFighters());
   }
@@ -187,9 +193,10 @@ class ArenasController  extends AppController
 
   public function messages()
   {
+    $id = $this->fighterId;
     $this->loadModel('Fighters');
     $this->set('fightersTable', $this->Fighters->getAllFighters());
-    $this->set('fightersNameAndId', $this->Fighters->getFightersNameAndId());
+    $this->set('fightersNameAndId', $this->Fighters->getFightersNameAndId($id));
 
     $this->loadModel('Messages');
 
