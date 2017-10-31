@@ -7,7 +7,7 @@
     </div>
     <div class="grid-x margin-x">
         <div class="large-2 medium-2 small-2 cell">
-<?php echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar','class'=>'th [radius] avatar', 'data-open' => 'changeAvatar']); ?> 
+<?php echo $this->Html->image("avatars/$FighterId.jpg", ['alt' => 'avatar','class'=>'th [radius] avatar', 'data-open' => 'changeAvatar']); ?> 
 
         </div>
 
