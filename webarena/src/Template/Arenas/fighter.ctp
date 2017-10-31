@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="grid-x margin-x">
-        <div class="large-2 medium-2 small-2 cell">
+        <div class="large-2 medium-12 small-12 text-center cell">
 <?php echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar','class'=>'th [radius] avatar', 'data-open' => 'changeAvatar']); ?> 
 
         </div>
@@ -25,7 +25,7 @@ echo $this->Form->end();?>
         </div>
 
 
-        <div class=" small-10 cell">
+        <div class=" small-12 large-10 cell">
             <dl>
                 <div class="grid-x margin-x align-center">  
                     <div class=" small-1 cell">

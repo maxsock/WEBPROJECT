@@ -58,7 +58,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
    
 
     
-<div class="top-bar"  id="nav-menu">
+<div class="top-bar" id="nav-menu">
   <div class="top-bar-left">
     <ul class=" medium-horizontal vertical dropdown menu" data-responsive-menu="accordion medium-dropdown">
          <li class="menu-text hide-for-small-only" >FIGHTERS ARENA</li>
@@ -80,13 +80,21 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <div id="footer">
             <div class='grid-x align-center'>
                 <div class='small-2 cell text-center'>
-                    <small> SI TD 03 OPTION BG</small>
+                    <small> SI TD 03 GLASER - LAUNET - PIVETTE - SOCK - OPTIONS BCG</small>
                 </div>
             </div>
         </div>
 
   <script>
       $(document).foundation();
+      $(window).resize(function() {
+    if( $(this).width() < 640 ) {
+        $('#nav-menu').addClass('menu-size');
+    }
+     else {
+         $('#nav-menu').removeClass('menu-size');
+     }
+    });
     </script>
 </body>
 </html>

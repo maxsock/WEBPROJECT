@@ -66,7 +66,7 @@ Actions left : <?php echo $actionsLeft;?>
 <?php echo $this->Form->control('attack',['type' => 'checkbox']);
 echo $this->Form->end();
 ?>
-<span class="show-for-sr">Download Kittens</span>
+
 </div>
 </div>
 </div>

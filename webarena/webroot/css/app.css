@@ -6,9 +6,9 @@
       
 }  
 .avatar {
-    width:200px;
-    height:auto;
- 
+    max-width:200px;
+    height:200px;
+
 }
 
 .image-size {
@@ -23,3 +23,6 @@
     background-color: grey;
 }
 
+.menu-size {
+    height: 230px;
+}
