@@ -14,7 +14,7 @@
 
         <div class="reveal" id="changeAvatar" data-reveal>
    <?php 
-echo $this->Html->image("avatars/$FighterId?=filemtime($avatar).jpg", ['alt' => 'avatar']); 
+echo $this->Html->image("avatars/$FighterId.jpg", ['alt' => 'avatar']); 
 echo $this->Form->create('Upload', array('type' => 'file'));
 echo $this->Form->file('file',['class' => 'radius button']);
 echo $this->Form->submit('Upload',['class' => 'radius button']);
