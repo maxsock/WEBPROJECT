@@ -107,6 +107,10 @@ class ArenasController  extends AppController
     $this->set('l', $length);
 
     $actionsLeft = floor(date_diff(Time::now(), $this->Fighters->getFighter($id)->next_action_time)->s /10);
+    if($actionsLeft > 3)
+    {
+      $actionsLeft = 3;
+    }
 
     if($this->request->is('post'))
     {
@@ -114,6 +118,7 @@ class ArenasController  extends AppController
       if ($actionsLeft > 0)
       {
         $this->Fighters->actions($fighter);
+        $actionsLeft = $actionsLeft-1;
         if($this->request->data['attack'])
         {
           $this->Events->addAttackEvent(array_merge($this->Fighters->attack($this->request->data['dir'], $fighter),array($fighter,Time::now())));

@@ -156,7 +156,7 @@ class FightersTable extends Table
     $newFighter->name = $fighterInfo[0];
     $newFighter->id = $fighterInfo[1];
     $newFighter->player_id = $fighterInfo[2];
-    $newFighter->level = '1';
+    $newFighter->level = '0';
     $newFighter->xp = '0';
     $newFighter->skill_sight = '2';
     $newFighter->skill_strength = '1';
