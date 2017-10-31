@@ -34,7 +34,7 @@ class ArenasController  extends AppController
 
     $array=$this->Fighters->getFighter($id);
 
-    if($array->current_health == '0' or $array->current_health == NULL)
+    if($array == null)
     {
         $array=$this->Fighters->getFighter($id);
     

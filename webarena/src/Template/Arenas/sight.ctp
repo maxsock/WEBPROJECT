@@ -44,23 +44,24 @@ Actions left : <?php echo $actionsLeft;?>
 <div class="grid-x align-center">
 <?php echo $this->Form->create();?>
   <div class="cell small-2  text-center">
-<?php echo $this->Form->submit('UP',['name'=>'dir','class'=>'button large']);?>
+<?php echo $this->Form->submit('UP',['name'=>'dir','type'=>'image','src' => '/img/decor/up.png']);?>
 </div>
 </div>
 <div class="grid-x align-center ">
-<div class="cell small-2 text-center ">
-      <?php echo $this->Form->submit('LEFT',['name'=>'dir','class'=>'button large']);?> 
+<div class="cell small-1 text-right">
+      <?php echo $this->Form->submit('LEFT',['name'=>'dir','type'=>'image','src' => '/img/decor/left.png']);?> 
 </div>
-    <div class="cell small-2 text-center">
-           <?php echo $this->Form->submit('RIGHT',['name'=>'dir','class'=>'button large']);?> 
-    </div>
-</div>
- <div class="grid-x align-center ">
-     <div class="cell small-4 text-center ">
-          <?php echo $this->Form->submit('DOWN',['name'=>'dir','class'=>'button large ']);?> 
+      <div class="cell small-1 text-center ">
+          <?php echo $this->Form->submit('DOWN',['name'=>'dir','type'=>'image','src' => '/img/decor/down.png']);?> 
      </div>
     
+
+    <div class="cell small-1 text-left">
+           <?php echo $this->Form->submit('RIGHT',['name'=>'dir','type'=>'image','src' => '/img/decor/right.png']);?> 
+    </div>
 </div>
+
+   
 <div class="grid-x align-center">
 <?php echo $this->Form->control('attack',['type' => 'checkbox']);
 echo $this->Form->end();
