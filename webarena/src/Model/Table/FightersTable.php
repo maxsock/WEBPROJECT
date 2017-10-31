@@ -149,14 +149,12 @@ class FightersTable extends Table{
   }
   public function newFighter($fighterInfo)
   {
-      $fightersTable = TableRegistry::get('Fighters');
-    $newFighter = $fightersTable::get($fighterInfo->id);
+    $fightersTable = TableRegistry::get('Fighters');
+    $newFighter = $fightersTable->newEntity();
     
-    $newFighter->name = $fighterInfo->name;
-    $newFighter->id = $fighterInfo->id;
-    $newFighter->player_id = $fighterInfo->player_id;
-    $newFighter->coordinate_x = rand ( '0' , '15' );
-    $newFighter->coordinate_y = rand ( '0' , '10' );
+    $newFighter->name = $fighterInfo[0];
+    $newFighter->id = $fighterInfo[1];
+    $newFighter->player_id = $fighterInfo[2];
     $newFighter->level = '1';
     $newFighter->xp = '0';
     $newFighter->skill_sight = '2';
@@ -165,6 +163,12 @@ class FightersTable extends Table{
     $newFighter->current_health = '5';
     $newFighter->next_action_time = NULL;
     $newFighter->guild_id = NULL;
+
+    do
+    {
+      $newFighter->coordinate_x = rand ( '0' , '15' );
+      $newFighter->coordinate_y = rand ( '0' , '10' );
+    }while ($fightersTable->findByCoordinate_xAndCoordinate_y($newFighter->coordinate_x,$newFighter->coordinate_y)->first() != null);
 
     $fightersTable->save($newFighter);
   }

@@ -10,7 +10,7 @@
     {
       if ($i== $FighterCoordY && $j== $FighterCoordX)
       {
-          $char = $this->Html->image("avatars/$FighterId.jpg", ['alt' => 'avatar', 'class' => 'image-size']);
+          $char = $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar', 'class' => 'image-size']);
       }
       else
       {

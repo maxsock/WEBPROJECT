@@ -34,8 +34,7 @@ class ArenasController  extends AppController
 
     $array=$this->Fighters->getFighter($id);
 
-   
-    if($array->current_health == '0' or $array->current_health == NULL)
+    if($array == null)
     {
         $array=$this->Fighters->getFighter($id);
     
@@ -45,10 +44,8 @@ class ArenasController  extends AppController
       
          if(isset($this->request->data['add']))
         {
-        $array->id=$id;
-        $array->name= $this->request->data['fighter_name'];
-        $this->Fighters->newFighter($array);
-      
+          $array2 = array($this->request->data['fighter_name'], $id, 1);
+          $this->Fighters->newFighter($array2);
         }
       
     }
@@ -56,29 +53,48 @@ class ArenasController  extends AppController
     if (!empty($this->request->data['file']))
     {
       $avatar = $this->request->data['file'];
-      $this->set('avatar',$avatar['type']);
       if ($avatar['type'] == 'image/png' or $avatar['type'] == 'image/jpeg' or $avatar['type'] == 'image/gif')
       {
-         move_uploaded_file($avatar['tmp_name'], WWW_ROOT . 'img/avatars/' . "$id.jpg");
+        move_uploaded_file($avatar['tmp_name'], WWW_ROOT . 'img/avatars/' . "$id.jpg");
       }
     }
 
-    $this->set('avatar','image/png');
-    $this->set('FighterName',$this->Fighters->getFighter($id)->name);
-    $this->set('FighterId',$this->Fighters->getFighter($id)->id);
-    $this->set('FighterLevel',$this->Fighters->getFighter($id)->level);
-    $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
-    $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
-    $this->set('FighterXp',$this->Fighters->getFighter($id)->xp);
-    $this->set('FighterSight',$this->Fighters->getFighter($id)->skill_sight);
-    $this->set('FighterStrength',$this->Fighters->getFighter($id)->skill_strength);
-    $this->set('FighterHealth',$this->Fighters->getFighter($id)->skill_health);
-    $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
-    $this->set('FighterNextActionTime',$this->Fighters->getFighter($id)->next_action_time);
-    $this->set('FighterGuildId',$this->Fighters->getFighter($id)->guild_id);
+    if($this->Fighters->getFighter($id) != null)
+    {
+      $this->set('avatar','image/jpeg');
+      $this->set('FighterName',$this->Fighters->getFighter($id)->name);
+      $this->set('FighterId',$this->Fighters->getFighter($id)->id);
+      $this->set('FighterLevel',$this->Fighters->getFighter($id)->level);
+      $this->set('FighterCoordX',$this->Fighters->getFighter($id)->coordinate_x);
+      $this->set('FighterCoordY',$this->Fighters->getFighter($id)->coordinate_y);
+      $this->set('FighterXp',$this->Fighters->getFighter($id)->xp);
+      $this->set('FighterSight',$this->Fighters->getFighter($id)->skill_sight);
+      $this->set('FighterStrength',$this->Fighters->getFighter($id)->skill_strength);
+      $this->set('FighterHealth',$this->Fighters->getFighter($id)->skill_health);
+      $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
+      $this->set('FighterNextActionTime',$this->Fighters->getFighter($id)->next_action_time);
+      $this->set('FighterGuildId',$this->Fighters->getFighter($id)->guild_id);
 
-    $upgradesLeft = floor((($this->Fighters->getFighter($id)->xp)/4) - $this->Fighters->getFighter($id)->level);
-    $this->set('upgradesLeft', $upgradesLeft);
+      $upgradesLeft = floor((($this->Fighters->getFighter($id)->xp)/4) - $this->Fighters->getFighter($id)->level);
+      $this->set('upgradesLeft', $upgradesLeft);
+    }   
+    else
+    {
+      $this->set('avatar','image/jpeg');
+      $this->set('FighterName','');
+      $this->set('FighterId','');
+      $this->set('FighterLevel','');
+      $this->set('FighterCoordX','');
+      $this->set('FighterCoordY','');
+      $this->set('FighterXp','');
+      $this->set('FighterSight','');
+      $this->set('FighterStrength','');
+      $this->set('FighterHealth','');
+      $this->set('FighterCurrentHealth',0);
+      $this->set('FighterNextActionTime','');
+      $this->set('FighterGuildId','');
+      $this->set('upgradesLeft', 0);
+    }
   }
 
   public function sight()
@@ -112,7 +128,7 @@ class ArenasController  extends AppController
     $this->set('FighterSkillSight',$this->Fighters->getFighter($id)->skill_sight);
     $this->set('FighterId',$this->Fighters->getFighter($id)->id);
     $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
-    $this->set('avatar','image/png');
+    $this->set('avatar','image/jpeg');
 
     $this->set('fightersTable', $this->Fighters->getAllFighters());
   }

@@ -7,14 +7,14 @@
     </div>
     <div class="grid-x margin-x">
         <div class="large-2 medium-2 small-2 cell">
-<?php echo $this->Html->image("avatars/$FighterId.jpg", ['alt' => 'avatar','class'=>'th [radius] avatar', 'data-open' => 'changeAvatar']); ?> 
+<?php echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar','class'=>'th [radius] avatar', 'data-open' => 'changeAvatar']); ?> 
 
         </div>
 
 
         <div class="reveal" id="changeAvatar" data-reveal>
    <?php 
-echo $this->Html->image("avatars/$FighterId.jpg", ['alt' => 'avatar']); 
+echo $this->Html->image("avatars/$FighterId?=filemtime($avatar).jpg", ['alt' => 'avatar']); 
 echo $this->Form->create('Upload', array('type' => 'file'));
 echo $this->Form->file('file',['class' => 'radius button']);
 echo $this->Form->submit('Upload',['class' => 'radius button']);
@@ -125,7 +125,7 @@ echo $this->Form->end();?>
 <script>
 
     $(function () {
-        if (<?php echo $FighterCurrentHealth;?> == '0')
+        if (<?php echo $FighterCurrentHealth;?> == ' ')
         {
             $("#hide-dead-fighter").hide();
         } else
