@@ -27,19 +27,18 @@ class ArenasController  extends AppController
 
   public function fighter()
   {
-      
-
     $id = $this->fighterId;
     $this->loadModel('Fighters');
 
     $array=$this->Fighters->getFighter($id);
+    $this->set('avatar','image/jpeg');
 
     if($array == null)
     {
         $array=$this->Fighters->getFighter($id);
     
         $file2 = new File(WWW_ROOT . "img/avatars/noimage.jpg", false, 0777);
-         $file2->copy(WWW_ROOT . "img/avatars/$id.jpg");
+        $file2->copy(WWW_ROOT . "img/avatars/$id.jpg");
 
       
          if(isset($this->request->data['add']))
@@ -47,7 +46,6 @@ class ArenasController  extends AppController
           $array2 = array($this->request->data['fighter_name'], $id, 1);
           $this->Fighters->newFighter($array2);
         }
-      
     }
 
     if (!empty($this->request->data['file']))
@@ -56,12 +54,12 @@ class ArenasController  extends AppController
       if ($avatar['type'] == 'image/png' or $avatar['type'] == 'image/jpeg' or $avatar['type'] == 'image/gif')
       {
         move_uploaded_file($avatar['tmp_name'], WWW_ROOT . 'img/avatars/' . "$id.jpg");
+        $this->set('avatar',$avatar['type']);
       }
     }
 
     if($this->Fighters->getFighter($id) != null)
     {
-      $this->set('avatar','image/jpeg');
       $this->set('FighterName',$this->Fighters->getFighter($id)->name);
       $this->set('FighterId',$this->Fighters->getFighter($id)->id);
       $this->set('FighterLevel',$this->Fighters->getFighter($id)->level);
