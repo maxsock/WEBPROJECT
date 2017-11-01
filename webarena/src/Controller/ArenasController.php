@@ -14,7 +14,7 @@ class ArenasController  extends AppController
 {
   public function index()
   {
-    $this->redirect(['action' => 'login']);
+      
   }
 
   public function login()

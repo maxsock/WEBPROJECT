@@ -7,14 +7,14 @@
     </div>
     <div class="grid-x margin-x">
         <div class="large-2 medium-12 small-12 text-center cell">
-<?php echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar','class'=>'th [radius] avatar', 'data-open' => 'changeAvatar']); ?> 
+<?php echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'Upload your avatar','class'=>'th [radius] avatar', 'data-open' => 'changeAvatar']); ?> 
 
         </div>
 
 
         <div class="reveal" id="changeAvatar" data-reveal>
    <?php 
-echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)", ['alt' => 'avatar']); 
+echo $this->Html->image("avatars/$FighterId.jpg?=filemtime($avatar)"); 
 echo $this->Form->create('Upload', array('type' => 'file'));
 echo $this->Form->file('file',['class' => 'radius button']);
 echo $this->Form->submit('Upload',['class' => 'radius button']);
