@@ -2,7 +2,6 @@
 namespace App\Controller;
 use App\Controller\AppController;
 use Cake\I18n\Time;
-use Cake\Utility\Hash;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 
@@ -13,21 +12,130 @@ use Cake\Filesystem\File;
 */
 class ArenasController  extends AppController
 {
-  var $fighterId = 2;
-
   public function index()
   {
-
+    $this->redirect(['action' => 'login']);
   }
 
   public function login()
   {
+    $this->loadModel('Players');
+    if ($this->request->is('post')) 
+    {
+      if (!is_null($this->request->getData()['Email']) and !is_null($this->request->getData()['Password']))
+      {
+        $user = $this->Players->login($this->request->getData());
+        if (is_null($user)) 
+        {
+          $this->Flash->error("Try to enter your credentials again");
+        } 
+        else 
+        {
+          $this->loadModel('Fighters');
+          $fighter = $this->Fighters->find()->select()->Where(['Fighters.player_id' => $user['id']])->first();
+          if($fighter == null)
+          {
+            $id = null;
+          }
+          else
+          {
+            $id = $fighter->id;
+          }
 
+          $this->request->session()->write('User', $user);
+          $this->request->session()->write('fid', $id);
+          $this->redirect(['action' => 'fighter']);
+        }
+      }
+      else
+      {
+        $this->Flash->error("Fill both email and password fields to register");
+        $this->redirect(['action' => 'login']);
+      }
+    }         
+  }
+
+  public function register()
+  {
+    $this->loadModel('Players');
+    if ($this->request->is('post')) 
+    {
+      if (!is_null($this->request->getData()['Email']) and !is_null($this->request->getData()['Password']))
+      {
+        $user = $this->Players->register($this->request->getData());
+        if (is_null($user)) 
+        {
+          $this->Flash->error("Try with an unused email");
+          $this->redirect(['action' => 'login']);
+        } 
+        else 
+        {
+          $this->loadModel('Fighters');
+          $fighter = $this->Fighters->find()->select()->Where(['Fighters.player_id' => $user['id']])->first();
+          if($fighter == null)
+          {
+            $id = null;
+          }
+          else
+          {
+            $id = $fighter->id;
+          }
+
+          $this->request->session()->write('User', $user);
+          $this->request->session()->write('fid', $id);
+          $this->redirect(['action' => 'fighter']);
+        }
+      }
+      else
+      {
+        $this->Flash->error("Fill both email and password fields to register");
+        $this->redirect(['action' => 'login']);
+      }
+    }
+  }
+
+  public function forgottenPassword()
+  {
+    $this->loadModel('Players');
+    if ($this->request->is('post')) 
+    {
+      if (!is_null($this->request->getData()['Email']))
+      {
+        $user = $this->Players->find()->select()->Where(['email' => $this->request->getData()['Email']])->first();
+        if (is_null($user)) 
+        {
+          $this->Flash->error("Try with a valid email");
+          $this->redirect(['action' => 'forgottenPassword']);
+        } 
+        else 
+        {
+          $this->Flash->success("Your new password : ".$this->Players->generatePassword($user));
+          $this->redirect(['action' => 'login']);
+        }
+      }
+      else
+      {
+        $this->Flash->error("Fill the email field to get a new password");
+        $this->redirect(['action' => 'forgottenPassword']);
+      }
+    }
+  }
+
+  public function logout()
+  {
+    $this->request->session()->destroy();
+    $this->redirect(['action' => 'login']);
   }
 
   public function fighter()
   {
-    $id = $this->fighterId;
+    $user = $this->request->session()->read('User');
+    if (!isset($user)) 
+    {
+      $this->redirect(['action' => 'login']);
+    }
+
+    $id = $this->request->session()->read('fid');
     $this->loadModel('Fighters');
 
     $array=$this->Fighters->getFighter($id);
@@ -43,8 +151,9 @@ class ArenasController  extends AppController
       
          if(isset($this->request->data['add']))
         {
-          $array2 = array($this->request->data['fighter_name'], $id, 1);
-          $this->Fighters->newFighter($array2);
+          $array2 = array($this->request->data['fighter_name'], $id, $this->request->session()->read('User.id'));
+          $this->request->session()->write('fid',$this->Fighters->newFighter($array2));
+          $id = $this->request->session()->read('fid');
         }
     }
 
@@ -97,7 +206,13 @@ class ArenasController  extends AppController
 
   public function sight()
   {
-    $id = $this->fighterId;
+    $user = $this->request->session()->read('User');
+    if (!isset($user)) 
+    {
+      $this->redirect(['action' => 'login']);
+    }
+
+    $id = $this->request->session()->read('fid');
     $height = 10;
     $length = 15;
 
@@ -144,7 +259,7 @@ class ArenasController  extends AppController
 
   public function addMessage()
   {
-    $id = $this->fighterId;
+    $id = $this->request->session()->read('fid');
       if ($this->request->is('post'))
       {
           $userTo = $this->request->getData()['To'];
@@ -173,7 +288,7 @@ class ArenasController  extends AppController
 
   public function liste()
   {
-    $id = $this->fighterId;
+    $id = $this->request->session()->read('fid');
     $this->loadModel('Messages');
     $this->loadModel('Fighters');
 
@@ -185,7 +300,13 @@ class ArenasController  extends AppController
 
   public function diary()
   {
-    $id = $this->fighterId;
+    $user = $this->request->session()->read('User');
+    if (!isset($user)) 
+    {
+      $this->redirect(['action' => 'login']);
+    }
+
+    $id = $this->request->session()->read('fid');
 
     $this->loadModel('Events');
     $this->loadModel('Fighters');
@@ -196,7 +317,13 @@ class ArenasController  extends AppController
 
   public function messages()
   {
-    $id = $this->fighterId;
+    $user = $this->request->session()->read('User');
+    if (!isset($user)) 
+    {
+      $this->redirect(['action' => 'login']);
+    }
+    
+    $id = $this->request->session()->read('fid');
     $this->loadModel('Fighters');
     $this->set('fightersTable', $this->Fighters->getAllFighters());
     $this->set('fightersNameAndId', $this->Fighters->getFightersNameAndId($id));
@@ -220,7 +347,7 @@ class ArenasController  extends AppController
 
   public function upgrade()
   {
-    $id = $this->fighterId;
+    $id = $this->request->session()->read('fid');
     $this->loadModel('Fighters');
     $fig = $this->Fighters->getFighter($id);
 
@@ -239,15 +366,4 @@ class ArenasController  extends AppController
     $this->set('upgradesLeft', $upgradesLeft);
     $this->redirect(['action'=>'fighter']);
   }
-}
-
-function profile()
-{
-    $this->loadModel("Player");
-     if($this->request->is("post"))
-        {
-        $this->request->getData("email");
-        }
-    $player=$this->get(42);
-    $this->set("player",$player);
 }

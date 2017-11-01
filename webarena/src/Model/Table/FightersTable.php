@@ -172,6 +172,7 @@ class FightersTable extends Table
     }while ($fightersTable->findByCoordinate_xAndCoordinate_y($newFighter->coordinate_x,$newFighter->coordinate_y)->first() != null);
 
     $fightersTable->save($newFighter);
+    return $newFighter->id;
   }
   
   public function upgrade($fig, $choice)
