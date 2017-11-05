@@ -1,21 +1,25 @@
-<div id='hide-join'>
+<div class="grid-container background cell">
+    <div id='hide-join'>
+        <div class="grid-x margin-x align-center cell">
 	<?php
-	echo "Join guild: "; //Display form only if player is not in a guild (fighter->guild == null)
-
-	echo $this->Form->create(null, ['url' => ['action' => 'joinGuild']]);
+	echo $this->Html->image("decor/joinguild.png", ['alt' => 'view','class' => 'image-size']); //Display form only if player is not in a guild (fighter->guild == null)?>
+    </div>
+	<?php echo $this->Form->create(null, ['url' => ['action' => 'joinGuild']]);
 	echo $this->Form->input('guildsList', ['type'=>'select','options'=>($guildsName), 'empty'=>'Choose a guild to join']); 
-	echo $this->Form->submit('Join this guild');
+	echo $this->Form->submit('Join this guild',['class' => 'radius button']);
 	echo $this->Form->end();
 	?>
 </div>
 
 <div id='hide-create'>
+     <div class="grid-x margin-x align-center cell">
 	<?php
-	echo "Create guild: "; //Display form only if player is not in a guild (fighter->guild == null)
-
+	echo $this->Html->image("decor/createguild.png", ['alt' => 'view','class' => 'image-size']); //Display form only if player is not in a guild (fighter->guild == null)?>
+     </div>
+            <?php
 	echo $this->Form->create(null, ['url' => ['action' => 'createGuild']]);
 	echo $this->Form->control('guildName'); 
-	echo $this->Form->submit('Create');
+	echo $this->Form->submit('Create',['class' => 'radius button']);
 	echo $this->Form->end();
 	?>
 </div>
@@ -37,7 +41,7 @@
 <div id='hide-quit'>
 	<?php //Display form only if player in a guild (fighter->guild != null)
 	echo $this->Form->create(null, ['url' => ['action' => 'quitGuild']]);
-	echo $this->Form->submit('Quit guild');
+	echo $this->Form->submit('Quit guild',['class' => 'radius button']);
 	echo $this->Form->end();
 	?>
 </div>
@@ -59,3 +63,5 @@
     });
 
 </script>
+
+</div>

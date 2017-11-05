@@ -2,15 +2,12 @@
    padding : 0;
    margin : 0;
    border-width : 0;
-   background-image: url("../img/decor/grass.png");
-      
+   background-image: url("../img/decor/grass.png"); 
 }  
 .avatar {
     min-width:200px;
     height:200px;
-
 }
-
 .image-size {
     min-height: 30px;
     min-width: 30px;
@@ -18,11 +15,25 @@
 .background {
     background-color: #E7D29D; 
 }
-
-.test {
-    background-color: grey;
-}
-
 .menu-size {
-    height: 270px;
+    height: 300px;
+}
+.button {
+    background-color: #412C17;
+}
+.button:hover{
+    background-color: #AF753B;
+}
+.top-bar {
+   background-color:  #412C17;
+}
+a {
+    color: white;
+}
+a:hover {
+    color: #AF753B;
+}
+.top-bar ul {
+   background-color:  #412C17;
+   color : #E7D29D;
 }

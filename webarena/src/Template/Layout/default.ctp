@@ -59,9 +59,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     
 <div class="top-bar" id="nav-menu">
-  <div class="top-bar-left">
     <ul class=" medium-horizontal vertical dropdown menu" data-responsive-menu="accordion medium-dropdown">
-         <li class="menu-text hide-for-small-only" >FIGHTERS ARENA</li>
+        
       <li > <?php echo $this->Html->link("Home",["controller"=>"Arenas", "action"=>"index"]);?> </li>
       <li><?php echo $this->Html->link("Login",["controller"=>"Arenas", "action"=>"login"]);?></li>
       <li> <?php echo $this->Html->link("Fighter",["controller"=>"Arenas", "action"=>"fighter"]);?></li>
@@ -71,7 +70,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <li> <?php echo $this->Html->link("Guilds",["controller"=>"Arenas", "action"=>"guilds"]);?> </li>
       <li> <?php echo $this->Html->link("Logout",["controller"=>"Arenas", "action"=>"logout"]);?> </li>
     </ul>
-  </div>
+
 
   </div>
 
