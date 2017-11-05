@@ -81,7 +81,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <div id="footer">
             <div class='grid-x align-center'>
                 <div class='small-2 cell text-center'>
-                    <small> SI TD 03 GLASER - LAUNET - PIVETTE - SOCK - OPTIONS BCG</small>
+                    <p><small> SI TD 03 GLASER - LAUNET - PIVETTE - SOCK - OPTIONS BCG</small></p>
+                    <p class='version'><small><?php echo $this->html->link('Link to the version log', '/webroot/versions.log'); ?></small></p>
                 </div>
             </div>
         </div>

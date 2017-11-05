@@ -86,7 +86,7 @@ class FightersTable extends Table
 
         if($fighterAttacked->current_health<=0)
         {
-          $fighter->xp = $fighter->xp + $fighterAttacked->level -1;
+          $fighter->xp = $fighter->xp + $fighterAttacked->level;
           if($fighterAttacked->level >0)
           {
             $arrayName[1]=$fighterAttacked->level;

@@ -30,6 +30,9 @@
 a {
     color: white;
 }
+.version a{
+  color: blue;
+}
 a:hover {
     color: #AF753B;
 }
