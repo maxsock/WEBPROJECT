@@ -24,6 +24,13 @@
                 $char=$this->Html->image("avatars/ennemi.jpg", ['alt' => 'ennemi']);
             }
           }
+          foreach ($friendsTable as $f)
+          {
+            if($i== $f->coordinate_y && $j== $f->coordinate_x)
+            {
+                $char=$this->Html->image("avatars/ami.jpg", ['alt' => 'ami']);
+            }
+          }
         }
         else
         {

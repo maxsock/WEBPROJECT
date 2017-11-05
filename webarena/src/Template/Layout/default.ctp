@@ -68,6 +68,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <li> <?php echo $this->Html->link("View",["controller"=>"Arenas", "action"=>"sight"]);?> </li>
       <li> <?php echo $this->Html->link("Diary",["controller"=>"Arenas", "action"=>"diary"]);?> </li>
       <li> <?php echo $this->Html->link("Messages",["controller"=>"Arenas", "action"=>"messages"]);?> </li>
+      <li> <?php echo $this->Html->link("Guilds",["controller"=>"Arenas", "action"=>"guilds"]);?> </li>
       <li> <?php echo $this->Html->link("Logout",["controller"=>"Arenas", "action"=>"logout"]);?> </li>
     </ul>
   </div>

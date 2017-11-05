@@ -50,7 +50,7 @@ class ArenasController  extends AppController
       else
       {
         $this->Flash->error("Fill both email and password fields to register");
-        $this->redirect(['action' => 'login']);
+        return $this->redirect(['action' => 'login']);
       }
     }         
   }
@@ -66,7 +66,7 @@ class ArenasController  extends AppController
         if (is_null($user)) 
         {
           $this->Flash->error("Try with an unused email");
-          $this->redirect(['action' => 'login']);
+          return $this->redirect(['action' => 'login']);
         } 
         else 
         {
@@ -89,7 +89,7 @@ class ArenasController  extends AppController
       else
       {
         $this->Flash->error("Fill both email and password fields to register");
-        $this->redirect(['action' => 'login']);
+        return $this->redirect(['action' => 'login']);
       }
     }
   }
@@ -110,7 +110,7 @@ class ArenasController  extends AppController
         else 
         {
           $this->Flash->success("Your new password : ".$this->Players->generatePassword($user));
-          $this->redirect(['action' => 'login']);
+          return $this->redirect(['action' => 'login']);
         }
       }
       else
@@ -124,7 +124,7 @@ class ArenasController  extends AppController
   public function logout()
   {
     $this->request->session()->destroy();
-    $this->redirect(['action' => 'login']);
+    return $this->redirect(['action' => 'login']);
   }
 
   public function fighter()
@@ -132,11 +132,12 @@ class ArenasController  extends AppController
     $user = $this->request->session()->read('User');
     if (!isset($user)) 
     {
-      $this->redirect(['action' => 'login']);
+      return $this->redirect(['action' => 'login']);
     }
 
     $id = $this->request->session()->read('fid');
     $this->loadModel('Fighters');
+    $this->loadModel('Guilds');
 
     $array=$this->Fighters->getFighter($id);
     $this->set('avatar','image/jpeg');
@@ -162,6 +163,7 @@ class ArenasController  extends AppController
       $avatar = $this->request->data['file'];
       if ($avatar['type'] == 'image/png' or $avatar['type'] == 'image/jpeg' or $avatar['type'] == 'image/gif')
       {
+        //echo($this->request->getData()['file']['tmp_name']);
         move_uploaded_file($avatar['tmp_name'], WWW_ROOT . 'img/avatars/' . "$id.jpg");
         $this->set('avatar',$avatar['type']);
       }
@@ -180,10 +182,18 @@ class ArenasController  extends AppController
       $this->set('FighterHealth',$this->Fighters->getFighter($id)->skill_health);
       $this->set('FighterCurrentHealth',$this->Fighters->getFighter($id)->current_health);
       $this->set('FighterNextActionTime',$this->Fighters->getFighter($id)->next_action_time);
-      $this->set('FighterGuildId',$this->Fighters->getFighter($id)->guild_id);
 
       $upgradesLeft = floor((($this->Fighters->getFighter($id)->xp)/4) - $this->Fighters->getFighter($id)->level);
       $this->set('upgradesLeft', $upgradesLeft);
+
+      if($this->Fighters->getFighter($id)->guild_id != null)
+      {
+        $this->set('FighterGuildName',$this->Guilds->getGuildsName()[$this->Fighters->getFighter($id)->guild_id]);
+      }
+      else
+      {
+        $this->set('FighterGuildName','No guild');
+      }
     }   
     else
     {
@@ -199,7 +209,7 @@ class ArenasController  extends AppController
       $this->set('FighterHealth','');
       $this->set('FighterCurrentHealth',0);
       $this->set('FighterNextActionTime','');
-      $this->set('FighterGuildId','');
+      $this->set('FighterGuildName','');
       $this->set('upgradesLeft', 0);
     }
   }
@@ -209,19 +219,25 @@ class ArenasController  extends AppController
     $user = $this->request->session()->read('User');
     if (!isset($user)) 
     {
-      $this->redirect(['action' => 'login']);
+      return $this->redirect(['action' => 'login']);
     }
-
-    $id = $this->request->session()->read('fid');
-    $height = 10;
-    $length = 15;
 
     $this->loadModel('Fighters');
     $this->loadModel('Events');
+    $id = $this->request->session()->read('fid');
+    $fighter=$this->Fighters->getFighter($id);
+    if (is_null($fighter))
+    {
+      return $this->redirect(['action' => 'fighter']);
+    }
+
+    $height = 10;
+    $length = 15;
+
     $this->set('h', $height);
     $this->set('l', $length);
 
-    $actionsLeft = floor(date_diff(Time::now(), $this->Fighters->getFighter($id)->next_action_time)->s /10);
+    $actionsLeft = floor(date_diff(Time::now(), $fighter->next_action_time)->s /10);
     if($actionsLeft > 3)
     {
       $actionsLeft = 3;
@@ -229,7 +245,6 @@ class ArenasController  extends AppController
 
     if($this->request->is('post'))
     {
-      $fighter=$this->Fighters->getFighter($id);
       if ($actionsLeft > 0)
       {
         $this->Fighters->actions($fighter);
@@ -255,6 +270,7 @@ class ArenasController  extends AppController
     $this->set('actionsLeft',$actionsLeft);
 
     $this->set('fightersTable', $this->Fighters->getAllFighters());
+    $this->set('friendsTable', $this->Fighters->getFightersFromSameGuild($this->Fighters->getFighter($id)));
   }
 
   public function addMessage()
@@ -303,7 +319,7 @@ class ArenasController  extends AppController
     $user = $this->request->session()->read('User');
     if (!isset($user)) 
     {
-      $this->redirect(['action' => 'login']);
+      return $this->redirect(['action' => 'login']);
     }
 
     $id = $this->request->session()->read('fid');
@@ -320,7 +336,7 @@ class ArenasController  extends AppController
     $user = $this->request->session()->read('User');
     if (!isset($user)) 
     {
-      $this->redirect(['action' => 'login']);
+      return $this->redirect(['action' => 'login']);
     }
     
     $id = $this->request->session()->read('fid');
@@ -340,9 +356,6 @@ class ArenasController  extends AppController
       $this->set('lastMessageIdFrom', ' ');
       $this->set('lastMessageDate', ' ');
     }
-
-    /*$this->set('lastMessageFromBoth', $this->Messages->getLastMessageFromBoth(1, 2));
-    $this->set('allMessagesFromBoth', $this->Messages->getAllMessagesFromBoth(1, 2));*/
   }
 
   public function upgrade()
@@ -358,12 +371,93 @@ class ArenasController  extends AppController
 
     if ($this->request->is('post'))
     {
-      if($upgradesLeft > 0)
+      if($this->request->getData()['upgradeType'] != null)
       {
-        $this->Fighters->upgrade($fig,$this->request->getData()['upgradeType']);
-      }
+        if($upgradesLeft > 0)
+        {
+          $this->Fighters->upgrade($fig,$this->request->getData()['upgradeType']);
+        }
+      }  
     }
     $this->set('upgradesLeft', $upgradesLeft);
     $this->redirect(['action'=>'fighter']);
+  }
+
+  public function guilds()
+  {
+    $user = $this->request->session()->read('User');
+    if (!isset($user)) 
+    {
+      return $this->redirect(['action' => 'login']);
+    }
+    
+    $id = $this->request->session()->read('fid');
+    $this->loadModel('Fighters');
+    $this->loadModel('Guilds');
+    $fig = $this->Fighters->getFighter($id);
+
+    $this->set('guildsName',$this->Guilds->getGuildsName());
+
+    if($fig->guild_id == null)
+    {
+      $this->set('guild',null);
+      $this->set('guildPlayers','');   
+    }
+    else
+    {
+      $this->set('guild',$this->Guilds->getGuildsName()[$this->Fighters->getFighter($id)->guild_id]);
+      $this->set('guildPlayers',$this->Fighters->findAllByGuild_id($this->Fighters->getFighter($id)->guild_id));
+    }
+  }
+
+  public function createGuild()
+  {
+    $id = $this->request->session()->read('fid');
+    $this->loadModel('Fighters');
+    $this->loadModel('Guilds');
+    $fig = $this->Fighters->getFighter($id);
+
+    if ($this->request->is('post'))
+    {
+      if($this->request->getData()['guildName'] != null)
+      {
+        $guildId = $this->Guilds->addGuild($this->request->getData()['guildName']);
+        $this->Fighters->joinGuild($guildId, $fig);
+        $this->redirect(['action'=>'fighter']);
+      }  
+    }
+  }
+
+  public function joinGuild()
+  {
+    $id = $this->request->session()->read('fid');
+    $this->loadModel('Fighters');
+    $fig = $this->Fighters->getFighter($id);
+
+    if ($this->request->is('post'))
+    {
+      if(!empty($this->request->getData()['guildsList']))
+      {
+        $this->Fighters->joinGuild($this->request->getData()['guildsList'], $fig);
+        $this->redirect(['action'=>'fighter']);
+      } 
+      else
+      {
+        $this->redirect(['action'=>'guilds']);
+      } 
+    }  
+  }
+
+  public function quitGuild()
+  {
+    $id = $this->request->session()->read('fid');
+    $this->loadModel('Fighters');
+    $fig = $this->Fighters->getFighter($id);
+
+    if ($this->request->is('post'))
+    {
+      $this->Fighters->quitGuild($fig);
+      $this->redirect(['action'=>'fighter']);
+    }
   }
 }

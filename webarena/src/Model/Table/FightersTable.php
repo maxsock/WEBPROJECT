@@ -48,7 +48,7 @@ class FightersTable extends Table
     $fighter = $fightersTable->get($fig->id);
     $fighterAttacked = $fightersTable->newEntity();
 
-    $arrayName = array($fighterAttacked,0,0);
+    $arrayName = array($fighterAttacked,0,0,0);
 
     if($dir=='UP'){
       $fighterAttacked = $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y-1)->first();
@@ -70,13 +70,27 @@ class FightersTable extends Table
       {
         $arrayName[1]=1;
         $fighter->xp = $fighter->xp + 1;
-        $fighterAttacked->current_health = $fighterAttacked->current_health - $fighter->skill_strength;
+        $bonus = 0;
+
+        if($fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y-1)->first()->guild_id == $fighter->guild_id || 
+          $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x,$fighter->coordinate_y+1)->first()->guild_id == $fighter->guild_id ||
+          $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x-1,$fighter->coordinate_y)->first()->guild_id == $fighter->guild_id ||
+          $fightersTable->findByCoordinate_xAndCoordinate_y($fighter->coordinate_x+1,$fighter->coordinate_y)->first()->guild_id == $fighter->guild_id)
+        {
+          $bonus = 1;
+        }
+
+        $arrayName[3] = $fighter->skill_strength + $bonus;
+        $fighterAttacked->current_health = $fighterAttacked->current_health - ($fighter->skill_strength + $bonus);
         $fightersTable->save($fighterAttacked);
 
         if($fighterAttacked->current_health<=0)
         {
           $fighter->xp = $fighter->xp + $fighterAttacked->level -1;
-          $arrayName[1]=$fighterAttacked->level;
+          if($fighterAttacked->level >0)
+          {
+            $arrayName[1]=$fighterAttacked->level;
+          }
           $arrayName[2]=1;
           $query = $fightersTable->delete($fighterAttacked);
         }
@@ -167,8 +181,8 @@ class FightersTable extends Table
 
     do
     {
-      $newFighter->coordinate_x = rand ( '0' , '15' );
-      $newFighter->coordinate_y = rand ( '0' , '10' );
+      $newFighter->coordinate_x = rand ( '0' , '14' );
+      $newFighter->coordinate_y = rand ( '0' , '9' );
     }while ($fightersTable->findByCoordinate_xAndCoordinate_y($newFighter->coordinate_x,$newFighter->coordinate_y)->first() != null);
 
     $fightersTable->save($newFighter);
@@ -213,5 +227,29 @@ class FightersTable extends Table
     ));
 
     return $fightersId;
+  }
+
+  public function joinGuild($guildId, $fig)
+  {
+    $fightersTable = TableRegistry::get('Fighters');
+
+    $fig->guild_id = $guildId[0];
+
+    $fightersTable->save($fig);
+  }
+
+  public function quitGuild($fig)
+  {
+    $fightersTable = TableRegistry::get('Fighters');
+
+    $fig->guild_id = null;
+
+    $fightersTable->save($fig);
+  }
+
+  public function getFightersFromSameGuild($fig)
+  {
+    $query = $this->find('all', ['conditions' => ['fighters.id !=' => $fig->id, 'fighters.guild_id =' => $fig->guild_id]]);
+    return $query;
   }
 }

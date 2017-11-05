@@ -81,7 +81,7 @@ echo $this->Form->end();?>
                     <div class=" small-2 cell">
                         <dt> Guild </dt>
 
-                        <dd> <?php echo $FighterGuildId;?> </dd>
+                        <dd> <?php echo $FighterGuildName;?> </dd>
                     </div>
                 </div>
         </div>
